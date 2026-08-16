@@ -1,0 +1,11 @@
+{
+    "cmake.sourceDirectory": "/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base",
+    "cmake.generator": "Ninja",
+    "cmake.configureSettings": {
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy;/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install",
+        "AMENT_PREFIX_PATH": "/opt/ros/jazzy;/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install"
+    },
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/ros2_ws/src/base/compile_commands.json",
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.errorSquiggles": "enabled"
+}

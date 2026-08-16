@@ -2,7 +2,7 @@
 # ament_cmake_core/cmake/uninstall_target/ament_cmake_uninstall_target.cmake.in
 
 function(ament_cmake_uninstall_target_remove_empty_directories path)
-  set(install_space "/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base")
+  set(install_space "/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base")
   if(install_space STREQUAL "")
     message(FATAL_ERROR "The CMAKE_INSTALL_PREFIX variable must not be empty")
   endif()
@@ -29,7 +29,7 @@ function(ament_cmake_uninstall_target_remove_empty_directories path)
 endfunction()
 
 # uninstall files installed using the standard install() function
-set(install_manifest "/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/install_manifest.txt")
+set(install_manifest "/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base/install_manifest.txt")
 if(NOT EXISTS "${install_manifest}")
   message(FATAL_ERROR "Cannot find install manifest: ${install_manifest}")
 endif()
