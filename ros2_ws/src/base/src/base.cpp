@@ -118,7 +118,7 @@ void Base::send_velocity(float vx, float vy, float omega)
   for (int i = 3; i < 15; ++i) {
     sum += frame[i];
   }
-  frame[15] = sum;
+  frame[15] = sum; 
   frame[16] = 0xBB;         // 帧尾
 
  try {
