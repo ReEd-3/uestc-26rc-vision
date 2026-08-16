@@ -7,7 +7,7 @@ Base::Base(const std::string & node_name)
 : Node(node_name),
   auto_stop_count_(0)
 {
-  // 参数声明与获取
+  // 参数声明与获取, 串口设备名，波特率，自动停止的启用
   this->declare_parameter<std::string>("port_name", "ttyUSB0");
   this->declare_parameter<int>("baudrate", 115200);  // 波特率设置115200
   this->declare_parameter<bool>("auto_stop_on", true);
@@ -16,6 +16,7 @@ Base::Base(const std::string & node_name)
   this->get_parameter("baudrate", baudrate_);
   this->get_parameter("auto_stop_on", auto_stop_on_);
 
+  // 日志打印INFO
   RCLCPP_INFO(this->get_logger(),
     "port: /dev/%s, baudrate: %d, auto_stop: %s",
     port_name_.c_str(), baudrate_, auto_stop_on_ ? "true" : "false");
@@ -83,18 +84,21 @@ void Base::timer_callback()
     return;
   }
 
-  if (auto_stop_count_ < 20) {
+  // 未达到超时阈值：计数累加（每 100ms 一次）
+  if (auto_stop_count_ < kAutoStopThreshold) {
     auto_stop_count_++;
-    if (auto_stop_count_ > kAutoStopThreshold) {
-      send_stop();
-      auto_stop_count_ = 255;  // 防止反复发送
-      RCLCPP_WARN_THROTTLE(
-        this->get_logger(), *this->get_clock(), 2000,
-        "cmd_vel timeout, send stop");
-    }
+    return;
   }
+
+  // 达到阈值（约 0.6s 未收到有效速度指令）：保持超时状态，
+  // 每 100ms 持续发送停车帧，直到收到新指令（cmd_vel_callback 中清零计数）
+  send_stop();
+  RCLCPP_WARN_THROTTLE(
+    this->get_logger(), *this->get_clock(), 2000,
+    "cmd_vel timeout, keep sending stop");
 }
 
+// 发送函数
 void Base::send_velocity(float vx, float vy, float omega)
 {
   // 二进制协议：
@@ -134,6 +138,7 @@ void Base::send_stop()
 {
   send_velocity(0.0f, 0.0f, 0.0f);
 }
+
 
 int main(int argc, char ** argv)
 {

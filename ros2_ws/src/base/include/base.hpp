@@ -38,7 +38,7 @@ private:
   int baudrate_;
   bool auto_stop_on_;
 
-  // 超时停车计数（100ms 一次，>5 即约 0.5s）
+  // 超时停车计数（100ms 一次，计数 >5 即约 0.6s；达到阈值后持续发停车帧）
   int auto_stop_count_;
   static constexpr int kAutoStopThreshold = 5;
 
