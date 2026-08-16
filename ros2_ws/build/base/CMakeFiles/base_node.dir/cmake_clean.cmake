@@ -1,0 +1,12 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/base_node.dir/link.d"
+  "CMakeFiles/base_node.dir/src/base.cpp.o"
+  "CMakeFiles/base_node.dir/src/base.cpp.o.d"
+  "base_node"
+  "base_node.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/base_node.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

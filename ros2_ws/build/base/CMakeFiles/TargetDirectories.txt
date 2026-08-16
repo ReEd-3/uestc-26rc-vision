@@ -1,0 +1,10 @@
+/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/CMakeFiles/uninstall.dir
+/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/CMakeFiles/base_uninstall.dir
+/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/CMakeFiles/base_node.dir
+/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/CMakeFiles/test.dir
+/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/CMakeFiles/edit_cache.dir
+/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/CMakeFiles/rebuild_cache.dir
+/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/CMakeFiles/list_install_components.dir
+/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/CMakeFiles/install.dir
+/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/CMakeFiles/install/local.dir
+/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base/CMakeFiles/install/strip.dir

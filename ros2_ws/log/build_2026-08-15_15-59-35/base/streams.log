@@ -1,0 +1,51 @@
+[0.006s] Invoking command in '/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base': AMENT_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:/opt/ros/lyrical/opt/gz_math_vendor:/opt/ros/lyrical/opt/gz_utils_vendor:/opt/ros/lyrical/opt/gz_cmake_vendor:/opt/ros/lyrical DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/src/base -DCMAKE_INSTALL_PREFIX=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base
+[0.010s] CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.010s]   Compatibility with CMake < 3.10 will be removed from a future version of
+[0.010s]   CMake.
+[0.010s] 
+[0.010s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.010s]   to tell CMake that the project requires at least <min> but has been updated
+[0.010s]   to work with policies introduced by <max> or earlier.
+[0.010s] 
+[0.010s] 
+[0.013s] -- Found ament_cmake: 2.8.8 (/opt/ros/lyrical/share/ament_cmake/cmake)
+[0.101s] -- Found rclcpp: 32.0.2 (/opt/ros/lyrical/share/rclcpp/cmake)
+[0.110s] -- Found rosidl_generator_c: 5.2.1 (/opt/ros/lyrical/share/rosidl_generator_c/cmake)
+[0.112s] -- Found rosidl_generator_cpp: 5.2.1 (/opt/ros/lyrical/share/rosidl_generator_cpp/cmake)
+[0.115s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.119s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.142s] -- Found rmw_implementation_cmake: 7.10.1 (/opt/ros/lyrical/share/rmw_implementation_cmake/cmake)
+[0.143s] -- Found rmw_fastrtps_cpp: 9.4.9 (/opt/ros/lyrical/share/rmw_fastrtps_cpp/cmake)
+[0.153s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.178s] -- Found geometry_msgs: 5.9.3 (/opt/ros/lyrical/share/geometry_msgs/cmake)
+[0.190s] -- Found serial: 1.2.1 (/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial/share/serial/cmake)
+[0.234s] -- Configuring done (0.2s)
+[0.240s] -- Generating done (0.0s)
+[0.254s] -- Build files have been written to: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base
+[0.256s] Invoked command in '/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base' returned '0': AMENT_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:/opt/ros/lyrical/opt/gz_math_vendor:/opt/ros/lyrical/opt/gz_utils_vendor:/opt/ros/lyrical/opt/gz_cmake_vendor:/opt/ros/lyrical DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/src/base -DCMAKE_INSTALL_PREFIX=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base
+[0.257s] Invoking command in '/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base': AMENT_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:/opt/ros/lyrical/opt/gz_math_vendor:/opt/ros/lyrical/opt/gz_utils_vendor:/opt/ros/lyrical/opt/gz_cmake_vendor:/opt/ros/lyrical DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base -- -j12 -l12
+[0.276s] [ 50%] Building CXX object CMakeFiles/base_node.dir/src/base.cpp.o
+[3.802s] [100%] Linking CXX executable base_node
+[3.931s] [100%] Built target base_node
+[3.935s] Invoked command in '/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base' returned '0': AMENT_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:/opt/ros/lyrical/opt/gz_math_vendor:/opt/ros/lyrical/opt/gz_utils_vendor:/opt/ros/lyrical/opt/gz_cmake_vendor:/opt/ros/lyrical DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base -- -j12 -l12
+[3.939s] Invoking command in '/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base': AMENT_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:/opt/ros/lyrical/opt/gz_math_vendor:/opt/ros/lyrical/opt/gz_utils_vendor:/opt/ros/lyrical/opt/gz_cmake_vendor:/opt/ros/lyrical DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base
+[3.941s] -- Install configuration: ""
+[3.942s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/lib/base/base_node
+[3.943s] -- Set non-toolchain portion of runtime path of "/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/lib/base/base_node" to ""
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/ament_index/resource_index/package_run_dependencies/base
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/ament_index/resource_index/parent_prefix_path/base
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/environment/ament_prefix_path.sh
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/environment/ament_prefix_path.dsv
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/environment/path.sh
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/environment/path.dsv
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/local_setup.bash
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/local_setup.fish
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/local_setup.sh
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/local_setup.zsh
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/local_setup.dsv
+[3.943s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/package.dsv
+[3.944s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/ament_index/resource_index/packages/base
+[3.944s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/cmake/baseConfig.cmake
+[3.944s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/cmake/baseConfig-version.cmake
+[3.944s] -- Installing: /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base/share/base/package.xml
+[3.944s] Invoked command in '/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base' returned '0': AMENT_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:/opt/ros/lyrical/opt/gz_math_vendor:/opt/ros/lyrical/opt/gz_utils_vendor:/opt/ros/lyrical/opt/gz_cmake_vendor:/opt/ros/lyrical DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base

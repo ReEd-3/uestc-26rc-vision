@@ -1,0 +1,39 @@
+[0.006s] Invoking command in '/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base': AMENT_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:/opt/ros/lyrical/opt/gz_math_vendor:/opt/ros/lyrical/opt/gz_utils_vendor:/opt/ros/lyrical/opt/gz_cmake_vendor:/opt/ros/lyrical DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/src/base -DCMAKE_INSTALL_PREFIX=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base
+[0.010s] CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.010s]   Compatibility with CMake < 3.10 will be removed from a future version of
+[0.010s]   CMake.
+[0.010s] 
+[0.010s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.010s]   to tell CMake that the project requires at least <min> but has been updated
+[0.010s]   to work with policies introduced by <max> or earlier.
+[0.010s] 
+[0.010s] 
+[0.031s] -- The C compiler identification is GNU 15.2.0
+[0.059s] -- The CXX compiler identification is GNU 15.2.0
+[0.062s] -- Detecting C compiler ABI info
+[0.094s] -- Detecting C compiler ABI info - done
+[0.100s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.100s] -- Detecting C compile features
+[0.100s] -- Detecting C compile features - done
+[0.105s] -- Detecting CXX compiler ABI info
+[0.140s] -- Detecting CXX compiler ABI info - done
+[0.147s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.147s] -- Detecting CXX compile features
+[0.147s] -- Detecting CXX compile features - done
+[0.151s] -- Found ament_cmake: 2.8.8 (/opt/ros/lyrical/share/ament_cmake/cmake)
+[0.281s] -- Found rclcpp: 32.0.2 (/opt/ros/lyrical/share/rclcpp/cmake)
+[0.296s] -- Found rosidl_generator_c: 5.2.1 (/opt/ros/lyrical/share/rosidl_generator_c/cmake)
+[0.300s] -- Found rosidl_generator_cpp: 5.2.1 (/opt/ros/lyrical/share/rosidl_generator_cpp/cmake)
+[0.307s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.313s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.342s] -- Found rmw_implementation_cmake: 7.10.1 (/opt/ros/lyrical/share/rmw_implementation_cmake/cmake)
+[0.344s] -- Found rmw_fastrtps_cpp: 9.4.9 (/opt/ros/lyrical/share/rmw_fastrtps_cpp/cmake)
+[0.358s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.390s] -- Found geometry_msgs: 5.9.3 (/opt/ros/lyrical/share/geometry_msgs/cmake)
+[0.403s] -- Found serial: 1.2.1 (/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial/share/serial/cmake)
+[0.404s] CMake Error at CMakeLists.txt:18 (ament_target_dependencies):
+[0.404s]   Unknown CMake command "ament_target_dependencies".
+[0.404s] 
+[0.404s] 
+[0.404s] -- Configuring incomplete, errors occurred!
+[0.407s] Invoked command in '/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/build/base' returned '1': AMENT_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial:/opt/ros/lyrical/opt/gz_math_vendor:/opt/ros/lyrical/opt/gz_utils_vendor:/opt/ros/lyrical/opt/gz_cmake_vendor:/opt/ros/lyrical DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/src/base -DCMAKE_INSTALL_PREFIX=/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/base
