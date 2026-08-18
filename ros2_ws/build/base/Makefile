@@ -234,6 +234,54 @@ src/base.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/base_node.dir/build.make CMakeFiles/base_node.dir/src/base.cpp.s
 .PHONY : src/base.cpp.s
 
+src/interact_cmds.o: src/interact_cmds.cpp.o
+.PHONY : src/interact_cmds.o
+
+# target to build an object file
+src/interact_cmds.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/base_node.dir/build.make CMakeFiles/base_node.dir/src/interact_cmds.cpp.o
+.PHONY : src/interact_cmds.cpp.o
+
+src/interact_cmds.i: src/interact_cmds.cpp.i
+.PHONY : src/interact_cmds.i
+
+# target to preprocess a source file
+src/interact_cmds.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/base_node.dir/build.make CMakeFiles/base_node.dir/src/interact_cmds.cpp.i
+.PHONY : src/interact_cmds.cpp.i
+
+src/interact_cmds.s: src/interact_cmds.cpp.s
+.PHONY : src/interact_cmds.s
+
+# target to generate assembly for a file
+src/interact_cmds.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/base_node.dir/build.make CMakeFiles/base_node.dir/src/interact_cmds.cpp.s
+.PHONY : src/interact_cmds.cpp.s
+
+src/uart_interact.o: src/uart_interact.cpp.o
+.PHONY : src/uart_interact.o
+
+# target to build an object file
+src/uart_interact.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/base_node.dir/build.make CMakeFiles/base_node.dir/src/uart_interact.cpp.o
+.PHONY : src/uart_interact.cpp.o
+
+src/uart_interact.i: src/uart_interact.cpp.i
+.PHONY : src/uart_interact.i
+
+# target to preprocess a source file
+src/uart_interact.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/base_node.dir/build.make CMakeFiles/base_node.dir/src/uart_interact.cpp.i
+.PHONY : src/uart_interact.cpp.i
+
+src/uart_interact.s: src/uart_interact.cpp.s
+.PHONY : src/uart_interact.s
+
+# target to generate assembly for a file
+src/uart_interact.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/base_node.dir/build.make CMakeFiles/base_node.dir/src/uart_interact.cpp.s
+.PHONY : src/uart_interact.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -253,6 +301,12 @@ help:
 	@echo "... src/base.o"
 	@echo "... src/base.i"
 	@echo "... src/base.s"
+	@echo "... src/interact_cmds.o"
+	@echo "... src/interact_cmds.i"
+	@echo "... src/interact_cmds.s"
+	@echo "... src/uart_interact.o"
+	@echo "... src/uart_interact.i"
+	@echo "... src/uart_interact.s"
 .PHONY : help
 
 

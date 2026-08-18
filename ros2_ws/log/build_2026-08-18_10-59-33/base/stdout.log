@@ -1,0 +1,35 @@
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found rclcpp: 28.1.21 (/opt/ros/jazzy/share/rclcpp/cmake)
+-- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found geometry_msgs: 5.3.8 (/opt/ros/jazzy/share/geometry_msgs/cmake)
+-- Found serial: 1.2.1 (/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial/share/serial/cmake)
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base
+[ 25%] Building CXX object CMakeFiles/base_node.dir/src/base.cpp.o
+[ 50%] Linking CXX executable base_node
+[100%] Built target base_node
+-- Install configuration: ""
+-- Installing: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/lib/base/base_node
+-- Set non-toolchain portion of runtime path of "/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/lib/base/base_node" to ""
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/ament_index/resource_index/package_run_dependencies/base
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/ament_index/resource_index/parent_prefix_path/base
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/ament_prefix_path.sh
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/path.sh
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/path.dsv
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.bash
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.sh
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.zsh
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.dsv
+-- Installing: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/package.dsv
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/ament_index/resource_index/packages/base
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/cmake/baseConfig.cmake
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/cmake/baseConfig-version.cmake
+-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/package.xml

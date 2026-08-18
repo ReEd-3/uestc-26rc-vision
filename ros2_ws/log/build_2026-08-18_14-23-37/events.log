@@ -1,0 +1,99 @@
+[0.000000] (-) TimerEvent: {}
+[0.000065] (-) JobUnselected: {'identifier': 'serial'}
+[0.000087] (base) JobQueued: {'identifier': 'base', 'dependencies': OrderedDict({'serial': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial'})}
+[0.000286] (base) JobStarted: {'identifier': 'base'}
+[0.006586] (base) JobProgress: {'identifier': 'base', 'progress': 'cmake'}
+[0.007287] (base) JobProgress: {'identifier': 'base', 'progress': 'build'}
+[0.007307] (base) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base', '--', '-j8', '-l8'], 'cwd': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'AI_AGENT': 'github_copilot_vscode_agent', 'USER': 'ubuntu', 'SSH_CLIENT': '10.64.17.186 44430 22', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/ubuntu/.vscode-server/cli/servers/Stable-a5b500951314efd502d07465bd138dfbd714a960/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'COPILOT_AGENT': '1', 'BROWSER': '/home/ubuntu/.vscode-server/cli/servers/Stable-a5b500951314efd502d07465bd138dfbd714a960/server/bin/helpers/browser.sh', 'HOME': '/home/ubuntu', 'OLDPWD': '/home/ubuntu/ws/uestc-26rc-vision', 'TERM_PROGRAM_VERSION': '1.133.0', 'NVM_BIN': '/home/ubuntu/.nvm/versions/node/v26.7.0/bin', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-b3b844c5-f81a-446c-a8b8-a62f2d0c88a2.sock', 'NVM_INC': '/home/ubuntu/.nvm/versions/node/v26.7.0/include/node', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/ubuntu/.vscode-server/cli/servers/Stable-a5b500951314efd502d07465bd138dfbd714a960/server/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/home/ubuntu/.vscode-server/cli/servers/Stable-a5b500951314efd502d07465bd138dfbd714a960/server/node', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'NVM_DIR': '/home/ubuntu/.nvm', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'ubuntu', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '2', 'HISTCONTROL': 'ignorespace', 'PATH': '/home/ubuntu/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/ubuntu/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/ubuntu/.vscode-server/cli/servers/Stable-a5b500951314efd502d07465bd138dfbd714a960/server/bin/remote-cli:/home/ubuntu/.nvm/versions/node/v26.7.0/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-42528031e3.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base:/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial:/opt/ros/jazzy', 'DEBIAN_FRONTEND': 'noninteractive', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base', 'GIT_MERGE_AUTOEDIT': 'no', 'LC_ALL': 'en_US.UTF-8', 'COPILOT_DEBUG_NONCE': '04d8d041f39c70d58512db20239712eb', 'SSH_CONNECTION': '10.64.17.186 44430 10.64.17.46 22', 'NVM_CD_FLAGS': '', 'XDG_DATA_DIRS': '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial:/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.044350] (base) StdoutLine: {'line': b'[ 25%] Building CXX object CMakeFiles/base_node.dir/src/base.cpp.o\n'}
+[0.099935] (-) TimerEvent: {}
+[0.200168] (-) TimerEvent: {}
+[0.300314] (-) TimerEvent: {}
+[0.400572] (-) TimerEvent: {}
+[0.500752] (-) TimerEvent: {}
+[0.600948] (-) TimerEvent: {}
+[0.701112] (-) TimerEvent: {}
+[0.801296] (-) TimerEvent: {}
+[0.901533] (-) TimerEvent: {}
+[1.001680] (-) TimerEvent: {}
+[1.101928] (-) TimerEvent: {}
+[1.202170] (-) TimerEvent: {}
+[1.302432] (-) TimerEvent: {}
+[1.402719] (-) TimerEvent: {}
+[1.502975] (-) TimerEvent: {}
+[1.603210] (-) TimerEvent: {}
+[1.703383] (-) TimerEvent: {}
+[1.803662] (-) TimerEvent: {}
+[1.903903] (-) TimerEvent: {}
+[2.004086] (-) TimerEvent: {}
+[2.104330] (-) TimerEvent: {}
+[2.204578] (-) TimerEvent: {}
+[2.304818] (-) TimerEvent: {}
+[2.405076] (-) TimerEvent: {}
+[2.505342] (-) TimerEvent: {}
+[2.605591] (-) TimerEvent: {}
+[2.705764] (-) TimerEvent: {}
+[2.805940] (-) TimerEvent: {}
+[2.906119] (-) TimerEvent: {}
+[3.006303] (-) TimerEvent: {}
+[3.106560] (-) TimerEvent: {}
+[3.206714] (-) TimerEvent: {}
+[3.306957] (-) TimerEvent: {}
+[3.407205] (-) TimerEvent: {}
+[3.507442] (-) TimerEvent: {}
+[3.607716] (-) TimerEvent: {}
+[3.707974] (-) TimerEvent: {}
+[3.808231] (-) TimerEvent: {}
+[3.908467] (-) TimerEvent: {}
+[4.008709] (-) TimerEvent: {}
+[4.108938] (-) TimerEvent: {}
+[4.209174] (-) TimerEvent: {}
+[4.309401] (-) TimerEvent: {}
+[4.409665] (-) TimerEvent: {}
+[4.509907] (-) TimerEvent: {}
+[4.610150] (-) TimerEvent: {}
+[4.710377] (-) TimerEvent: {}
+[4.810629] (-) TimerEvent: {}
+[4.910858] (-) TimerEvent: {}
+[5.011091] (-) TimerEvent: {}
+[5.111335] (-) TimerEvent: {}
+[5.211600] (-) TimerEvent: {}
+[5.311844] (-) TimerEvent: {}
+[5.412010] (-) TimerEvent: {}
+[5.512270] (-) TimerEvent: {}
+[5.612513] (-) TimerEvent: {}
+[5.712742] (-) TimerEvent: {}
+[5.812972] (-) TimerEvent: {}
+[5.913228] (-) TimerEvent: {}
+[6.013506] (-) TimerEvent: {}
+[6.113744] (-) TimerEvent: {}
+[6.213988] (-) TimerEvent: {}
+[6.314250] (-) TimerEvent: {}
+[6.328335] (base) StdoutLine: {'line': b'[ 50%] Linking CXX executable base_node\n'}
+[6.414360] (-) TimerEvent: {}
+[6.514605] (-) TimerEvent: {}
+[6.555541] (base) StdoutLine: {'line': b'[100%] Built target base_node\n'}
+[6.562915] (base) CommandEnded: {'returncode': 0}
+[6.563325] (base) JobProgress: {'identifier': 'base', 'progress': 'install'}
+[6.568636] (base) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base'], 'cwd': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'AI_AGENT': 'github_copilot_vscode_agent', 'USER': 'ubuntu', 'SSH_CLIENT': '10.64.17.186 44430 22', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/ubuntu/.vscode-server/cli/servers/Stable-a5b500951314efd502d07465bd138dfbd714a960/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'COPILOT_AGENT': '1', 'BROWSER': '/home/ubuntu/.vscode-server/cli/servers/Stable-a5b500951314efd502d07465bd138dfbd714a960/server/bin/helpers/browser.sh', 'HOME': '/home/ubuntu', 'OLDPWD': '/home/ubuntu/ws/uestc-26rc-vision', 'TERM_PROGRAM_VERSION': '1.133.0', 'NVM_BIN': '/home/ubuntu/.nvm/versions/node/v26.7.0/bin', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-b3b844c5-f81a-446c-a8b8-a62f2d0c88a2.sock', 'NVM_INC': '/home/ubuntu/.nvm/versions/node/v26.7.0/include/node', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/ubuntu/.vscode-server/cli/servers/Stable-a5b500951314efd502d07465bd138dfbd714a960/server/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/home/ubuntu/.vscode-server/cli/servers/Stable-a5b500951314efd502d07465bd138dfbd714a960/server/node', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'NVM_DIR': '/home/ubuntu/.nvm', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'ubuntu', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '2', 'HISTCONTROL': 'ignorespace', 'PATH': '/home/ubuntu/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/ubuntu/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/ubuntu/.vscode-server/cli/servers/Stable-a5b500951314efd502d07465bd138dfbd714a960/server/bin/remote-cli:/home/ubuntu/.nvm/versions/node/v26.7.0/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-42528031e3.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base:/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial:/opt/ros/jazzy', 'DEBIAN_FRONTEND': 'noninteractive', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base', 'GIT_MERGE_AUTOEDIT': 'no', 'LC_ALL': 'en_US.UTF-8', 'COPILOT_DEBUG_NONCE': '04d8d041f39c70d58512db20239712eb', 'SSH_CONNECTION': '10.64.17.186 44430 10.64.17.46 22', 'NVM_CD_FLAGS': '', 'XDG_DATA_DIRS': '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial:/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[6.574439] (base) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[6.574600] (base) StdoutLine: {'line': b'-- Installing: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/lib/base/base_node\n'}
+[6.579746] (base) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/lib/base/base_node" to ""\n'}
+[6.579954] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/ament_index/resource_index/package_run_dependencies/base\n'}
+[6.580006] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/ament_index/resource_index/parent_prefix_path/base\n'}
+[6.580055] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/ament_prefix_path.sh\n'}
+[6.580104] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/ament_prefix_path.dsv\n'}
+[6.580151] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/path.sh\n'}
+[6.580198] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/path.dsv\n'}
+[6.580245] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.bash\n'}
+[6.580292] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.sh\n'}
+[6.580371] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.zsh\n'}
+[6.580416] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.dsv\n'}
+[6.580461] (base) StdoutLine: {'line': b'-- Installing: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/package.dsv\n'}
+[6.580512] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/ament_index/resource_index/packages/base\n'}
+[6.580558] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/cmake/baseConfig.cmake\n'}
+[6.580604] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/cmake/baseConfig-version.cmake\n'}
+[6.580652] (base) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/package.xml\n'}
+[6.581039] (base) CommandEnded: {'returncode': 0}
+[6.590855] (base) JobEnded: {'identifier': 'base', 'rc': 0}
+[6.591167] (-) EventReactorShutdown: {}

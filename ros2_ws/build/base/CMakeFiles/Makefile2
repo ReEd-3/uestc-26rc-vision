@@ -135,12 +135,12 @@ CMakeFiles/base_uninstall.dir/clean:
 CMakeFiles/base_node.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/base_node.dir/build.make CMakeFiles/base_node.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/base_node.dir/build.make CMakeFiles/base_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base/CMakeFiles --progress-num=1,2 "Built target base_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base/CMakeFiles --progress-num=1,2,3,4 "Built target base_node"
 .PHONY : CMakeFiles/base_node.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/base_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/base_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base/CMakeFiles 0
 .PHONY : CMakeFiles/base_node.dir/rule

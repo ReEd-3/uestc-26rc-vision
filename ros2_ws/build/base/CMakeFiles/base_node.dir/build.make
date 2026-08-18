@@ -83,14 +83,46 @@ CMakeFiles/base_node.dir/src/base.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/base_node.dir/src/base.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/base.cpp -o CMakeFiles/base_node.dir/src/base.cpp.s
 
+CMakeFiles/base_node.dir/src/uart_interact.cpp.o: CMakeFiles/base_node.dir/flags.make
+CMakeFiles/base_node.dir/src/uart_interact.cpp.o: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/uart_interact.cpp
+CMakeFiles/base_node.dir/src/uart_interact.cpp.o: CMakeFiles/base_node.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/base_node.dir/src/uart_interact.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/base_node.dir/src/uart_interact.cpp.o -MF CMakeFiles/base_node.dir/src/uart_interact.cpp.o.d -o CMakeFiles/base_node.dir/src/uart_interact.cpp.o -c /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/uart_interact.cpp
+
+CMakeFiles/base_node.dir/src/uart_interact.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/base_node.dir/src/uart_interact.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/uart_interact.cpp > CMakeFiles/base_node.dir/src/uart_interact.cpp.i
+
+CMakeFiles/base_node.dir/src/uart_interact.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/base_node.dir/src/uart_interact.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/uart_interact.cpp -o CMakeFiles/base_node.dir/src/uart_interact.cpp.s
+
+CMakeFiles/base_node.dir/src/interact_cmds.cpp.o: CMakeFiles/base_node.dir/flags.make
+CMakeFiles/base_node.dir/src/interact_cmds.cpp.o: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/interact_cmds.cpp
+CMakeFiles/base_node.dir/src/interact_cmds.cpp.o: CMakeFiles/base_node.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/base_node.dir/src/interact_cmds.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/base_node.dir/src/interact_cmds.cpp.o -MF CMakeFiles/base_node.dir/src/interact_cmds.cpp.o.d -o CMakeFiles/base_node.dir/src/interact_cmds.cpp.o -c /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/interact_cmds.cpp
+
+CMakeFiles/base_node.dir/src/interact_cmds.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/base_node.dir/src/interact_cmds.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/interact_cmds.cpp > CMakeFiles/base_node.dir/src/interact_cmds.cpp.i
+
+CMakeFiles/base_node.dir/src/interact_cmds.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/base_node.dir/src/interact_cmds.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/interact_cmds.cpp -o CMakeFiles/base_node.dir/src/interact_cmds.cpp.s
+
 # Object files for target base_node
 base_node_OBJECTS = \
-"CMakeFiles/base_node.dir/src/base.cpp.o"
+"CMakeFiles/base_node.dir/src/base.cpp.o" \
+"CMakeFiles/base_node.dir/src/uart_interact.cpp.o" \
+"CMakeFiles/base_node.dir/src/interact_cmds.cpp.o"
 
 # External object files for target base_node
 base_node_EXTERNAL_OBJECTS =
 
 base_node: CMakeFiles/base_node.dir/src/base.cpp.o
+base_node: CMakeFiles/base_node.dir/src/uart_interact.cpp.o
+base_node: CMakeFiles/base_node.dir/src/interact_cmds.cpp.o
 base_node: CMakeFiles/base_node.dir/build.make
 base_node: /opt/ros/jazzy/lib/librclcpp.so
 base_node: /opt/ros/jazzy/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_c.so
@@ -99,6 +131,12 @@ base_node: /opt/ros/jazzy/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_cpp.
 base_node: /opt/ros/jazzy/lib/libgeometry_msgs__rosidl_typesupport_introspection_cpp.so
 base_node: /opt/ros/jazzy/lib/libgeometry_msgs__rosidl_typesupport_cpp.so
 base_node: /opt/ros/jazzy/lib/libgeometry_msgs__rosidl_generator_py.so
+base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_fastrtps_c.so
+base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_fastrtps_cpp.so
+base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_introspection_c.so
+base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_introspection_cpp.so
+base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_cpp.so
+base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_generator_py.so
 base_node: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial/lib/libserial.a
 base_node: /opt/ros/jazzy/lib/liblibstatistics_collector.so
 base_node: /opt/ros/jazzy/lib/librcl.so
@@ -147,11 +185,8 @@ base_node: /opt/ros/jazzy/lib/libtracetools.so
 base_node: /opt/ros/jazzy/lib/librcl_logging_interface.so
 base_node: /opt/ros/jazzy/lib/libgeometry_msgs__rosidl_typesupport_c.so
 base_node: /opt/ros/jazzy/lib/libgeometry_msgs__rosidl_generator_c.so
-base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_fastrtps_c.so
-base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_introspection_c.so
-base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_fastrtps_cpp.so
-base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_introspection_cpp.so
-base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_cpp.so
+base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_c.so
+base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_generator_c.so
 base_node: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_c.so
 base_node: /opt/ros/jazzy/lib/librosidl_typesupport_fastrtps_c.so
 base_node: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_c.so
@@ -166,16 +201,14 @@ base_node: /opt/ros/jazzy/lib/librosidl_typesupport_introspection_c.so
 base_node: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_typesupport_cpp.so
 base_node: /opt/ros/jazzy/lib/librosidl_typesupport_cpp.so
 base_node: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_generator_py.so
-base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_c.so
 base_node: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_typesupport_c.so
-base_node: /opt/ros/jazzy/lib/libstd_msgs__rosidl_generator_c.so
 base_node: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_generator_c.so
 base_node: /opt/ros/jazzy/lib/librosidl_typesupport_c.so
 base_node: /opt/ros/jazzy/lib/librcpputils.so
 base_node: /opt/ros/jazzy/lib/librosidl_runtime_c.so
 base_node: /opt/ros/jazzy/lib/librcutils.so
 base_node: CMakeFiles/base_node.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable base_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable base_node"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/base_node.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

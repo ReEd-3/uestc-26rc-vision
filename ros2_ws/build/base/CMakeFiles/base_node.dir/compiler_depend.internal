@@ -6,6 +6,8 @@ CMakeFiles/base_node.dir/src/base.cpp.o
  /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial/include/serial/serial.h
  /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial/include/serial/v8stdint.h
  /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/include/base.hpp
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/include/interact_cmds.hpp
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/include/uart_interact.hpp
  /opt/ros/jazzy/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__builder.hpp
  /opt/ros/jazzy/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__struct.hpp
  /opt/ros/jazzy/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__traits.hpp
@@ -18,12 +20,17 @@ CMakeFiles/base_node.dir/src/base.cpp.o
  /opt/ros/jazzy/include/builtin_interfaces/builtin_interfaces/msg/duration.hpp
  /opt/ros/jazzy/include/builtin_interfaces/builtin_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
  /opt/ros/jazzy/include/builtin_interfaces/builtin_interfaces/msg/time.hpp
+ /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/pose2_d__builder.hpp
+ /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/pose2_d__struct.hpp
+ /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/pose2_d__traits.hpp
+ /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/pose2_d__type_support.hpp
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/twist__builder.hpp
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/twist__struct.hpp
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/twist__traits.hpp
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/twist__type_support.hpp
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/vector3__struct.hpp
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/vector3__traits.hpp
+ /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/pose2_d.hpp
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/twist.hpp
  /opt/ros/jazzy/include/libstatistics_collector/libstatistics_collector/collector/collector.hpp
@@ -403,6 +410,26 @@ CMakeFiles/base_node.dir/src/base.cpp.o
  /opt/ros/jazzy/include/statistics_msgs/statistics_msgs/msg/detail/statistic_data_point__traits.hpp
  /opt/ros/jazzy/include/statistics_msgs/statistics_msgs/msg/metrics_message.hpp
  /opt/ros/jazzy/include/statistics_msgs/statistics_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/bool.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/bool__builder.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/bool__struct.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/bool__traits.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/bool__type_support.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__struct.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__traits.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/multi_array_layout__struct.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/multi_array_layout__traits.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8__builder.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8__struct.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8__traits.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8__type_support.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8_multi_array__builder.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8_multi_array__struct.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8_multi_array__traits.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8_multi_array__type_support.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/u_int8.hpp
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/u_int8_multi_array.hpp
  /opt/ros/jazzy/include/tracetools/tracetools/config.h
  /opt/ros/jazzy/include/tracetools/tracetools/tracetools.h
  /opt/ros/jazzy/include/tracetools/tracetools/utils.hpp
@@ -766,6 +793,157 @@ CMakeFiles/base_node.dir/src/base.cpp.o
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdalign.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
+
+CMakeFiles/base_node.dir/src/interact_cmds.cpp.o
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/interact_cmds.cpp
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/include/interact_cmds.hpp
+ /usr/include/c++/13/backward/binders.h
+ /usr/include/c++/13/bit
+ /usr/include/c++/13/bits/alloc_traits.h
+ /usr/include/c++/13/bits/allocator.h
+ /usr/include/c++/13/bits/concept_check.h
+ /usr/include/c++/13/bits/cpp_type_traits.h
+ /usr/include/c++/13/bits/exception.h
+ /usr/include/c++/13/bits/exception_defines.h
+ /usr/include/c++/13/bits/functexcept.h
+ /usr/include/c++/13/bits/functional_hash.h
+ /usr/include/c++/13/bits/hash_bytes.h
+ /usr/include/c++/13/bits/invoke.h
+ /usr/include/c++/13/bits/memory_resource.h
+ /usr/include/c++/13/bits/memoryfwd.h
+ /usr/include/c++/13/bits/move.h
+ /usr/include/c++/13/bits/new_allocator.h
+ /usr/include/c++/13/bits/predefined_ops.h
+ /usr/include/c++/13/bits/ptr_traits.h
+ /usr/include/c++/13/bits/range_access.h
+ /usr/include/c++/13/bits/refwrap.h
+ /usr/include/c++/13/bits/requires_hosted.h
+ /usr/include/c++/13/bits/stl_algobase.h
+ /usr/include/c++/13/bits/stl_bvector.h
+ /usr/include/c++/13/bits/stl_construct.h
+ /usr/include/c++/13/bits/stl_function.h
+ /usr/include/c++/13/bits/stl_iterator.h
+ /usr/include/c++/13/bits/stl_iterator_base_funcs.h
+ /usr/include/c++/13/bits/stl_iterator_base_types.h
+ /usr/include/c++/13/bits/stl_pair.h
+ /usr/include/c++/13/bits/stl_uninitialized.h
+ /usr/include/c++/13/bits/stl_vector.h
+ /usr/include/c++/13/bits/uses_allocator.h
+ /usr/include/c++/13/bits/uses_allocator_args.h
+ /usr/include/c++/13/bits/utility.h
+ /usr/include/c++/13/bits/vector.tcc
+ /usr/include/c++/13/cstddef
+ /usr/include/c++/13/debug/assertions.h
+ /usr/include/c++/13/debug/debug.h
+ /usr/include/c++/13/ext/alloc_traits.h
+ /usr/include/c++/13/ext/numeric_traits.h
+ /usr/include/c++/13/ext/type_traits.h
+ /usr/include/c++/13/initializer_list
+ /usr/include/c++/13/new
+ /usr/include/c++/13/pstl/pstl_config.h
+ /usr/include/c++/13/tuple
+ /usr/include/c++/13/type_traits
+ /usr/include/c++/13/vector
+ /usr/include/features-time64.h
+ /usr/include/features.h
+ /usr/include/stdc-predef.h
+ /usr/include/stdint.h
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+ /usr/include/x86_64-linux-gnu/bits/long-double.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h
+ /usr/include/x86_64-linux-gnu/bits/time64.h
+ /usr/include/x86_64-linux-gnu/bits/timesize.h
+ /usr/include/x86_64-linux-gnu/bits/types.h
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h
+ /usr/include/x86_64-linux-gnu/bits/wchar.h
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h
+ /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h
+ /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h
+ /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h
+ /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
+
+CMakeFiles/base_node.dir/src/uart_interact.cpp.o
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/uart_interact.cpp
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/include/interact_cmds.hpp
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/include/uart_interact.hpp
+ /usr/include/c++/13/backward/binders.h
+ /usr/include/c++/13/bit
+ /usr/include/c++/13/bits/alloc_traits.h
+ /usr/include/c++/13/bits/allocator.h
+ /usr/include/c++/13/bits/concept_check.h
+ /usr/include/c++/13/bits/cpp_type_traits.h
+ /usr/include/c++/13/bits/exception.h
+ /usr/include/c++/13/bits/exception_defines.h
+ /usr/include/c++/13/bits/functexcept.h
+ /usr/include/c++/13/bits/functional_hash.h
+ /usr/include/c++/13/bits/hash_bytes.h
+ /usr/include/c++/13/bits/invoke.h
+ /usr/include/c++/13/bits/memory_resource.h
+ /usr/include/c++/13/bits/memoryfwd.h
+ /usr/include/c++/13/bits/move.h
+ /usr/include/c++/13/bits/new_allocator.h
+ /usr/include/c++/13/bits/predefined_ops.h
+ /usr/include/c++/13/bits/ptr_traits.h
+ /usr/include/c++/13/bits/range_access.h
+ /usr/include/c++/13/bits/refwrap.h
+ /usr/include/c++/13/bits/requires_hosted.h
+ /usr/include/c++/13/bits/stl_algobase.h
+ /usr/include/c++/13/bits/stl_bvector.h
+ /usr/include/c++/13/bits/stl_construct.h
+ /usr/include/c++/13/bits/stl_function.h
+ /usr/include/c++/13/bits/stl_iterator.h
+ /usr/include/c++/13/bits/stl_iterator_base_funcs.h
+ /usr/include/c++/13/bits/stl_iterator_base_types.h
+ /usr/include/c++/13/bits/stl_pair.h
+ /usr/include/c++/13/bits/stl_uninitialized.h
+ /usr/include/c++/13/bits/stl_vector.h
+ /usr/include/c++/13/bits/uses_allocator.h
+ /usr/include/c++/13/bits/uses_allocator_args.h
+ /usr/include/c++/13/bits/utility.h
+ /usr/include/c++/13/bits/vector.tcc
+ /usr/include/c++/13/cstddef
+ /usr/include/c++/13/debug/assertions.h
+ /usr/include/c++/13/debug/debug.h
+ /usr/include/c++/13/ext/alloc_traits.h
+ /usr/include/c++/13/ext/numeric_traits.h
+ /usr/include/c++/13/ext/type_traits.h
+ /usr/include/c++/13/initializer_list
+ /usr/include/c++/13/new
+ /usr/include/c++/13/pstl/pstl_config.h
+ /usr/include/c++/13/tuple
+ /usr/include/c++/13/type_traits
+ /usr/include/c++/13/vector
+ /usr/include/features-time64.h
+ /usr/include/features.h
+ /usr/include/stdc-predef.h
+ /usr/include/stdint.h
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+ /usr/include/x86_64-linux-gnu/bits/long-double.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h
+ /usr/include/x86_64-linux-gnu/bits/time64.h
+ /usr/include/x86_64-linux-gnu/bits/timesize.h
+ /usr/include/x86_64-linux-gnu/bits/types.h
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h
+ /usr/include/x86_64-linux-gnu/bits/wchar.h
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h
+ /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h
+ /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h
+ /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h
+ /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 

@@ -1,0 +1,43 @@
+[0.008s] Invoking command in '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base': CMAKE_PREFIX_PATH=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial:/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base
+[0.028s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.186s] -- Found rclcpp: 28.1.21 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.209s] -- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.215s] -- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.225s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.235s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.283s] -- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.284s] -- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.329s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.380s] -- Found geometry_msgs: 5.3.8 (/opt/ros/jazzy/share/geometry_msgs/cmake)
+[0.403s] -- Found serial: 1.2.1 (/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial/share/serial/cmake)
+[0.466s] -- Configuring done (0.4s)
+[0.475s] -- Generating done (0.0s)
+[0.478s] -- Build files have been written to: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base
+[0.483s] Invoked command in '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base' returned '0': CMAKE_PREFIX_PATH=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial:/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base
+[0.484s] Invoking command in '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base': CMAKE_PREFIX_PATH=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial:/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base -- -j8 -l8
+[0.525s] [ 75%] Building CXX object CMakeFiles/base_node.dir/src/uart_interact.cpp.o
+[0.525s] [ 75%] Building CXX object CMakeFiles/base_node.dir/src/interact_cmds.cpp.o
+[0.525s] [ 75%] Building CXX object CMakeFiles/base_node.dir/src/base.cpp.o
+[7.045s] [100%] Linking CXX executable base_node
+[7.305s] [100%] Built target base_node
+[7.312s] Invoked command in '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base' returned '0': CMAKE_PREFIX_PATH=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial:/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base -- -j8 -l8
+[7.318s] Invoking command in '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base': CMAKE_PREFIX_PATH=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial:/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base
+[7.323s] -- Install configuration: ""
+[7.323s] -- Installing: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/lib/base/base_node
+[7.326s] -- Set non-toolchain portion of runtime path of "/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/lib/base/base_node" to ""
+[7.326s] -- Installing: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/ament_index/resource_index/package_run_dependencies/base
+[7.326s] -- Installing: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/ament_index/resource_index/parent_prefix_path/base
+[7.326s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/ament_prefix_path.sh
+[7.327s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/ament_prefix_path.dsv
+[7.327s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/path.sh
+[7.327s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/environment/path.dsv
+[7.327s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.bash
+[7.327s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.sh
+[7.327s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.zsh
+[7.327s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/local_setup.dsv
+[7.327s] -- Installing: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/package.dsv
+[7.327s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/ament_index/resource_index/packages/base
+[7.327s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/cmake/baseConfig.cmake
+[7.327s] -- Up-to-date: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/cmake/baseConfig-version.cmake
+[7.327s] -- Installing: /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base/share/base/package.xml
+[7.328s] Invoked command in '/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base' returned '0': CMAKE_PREFIX_PATH=/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial:/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/base:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/build/base

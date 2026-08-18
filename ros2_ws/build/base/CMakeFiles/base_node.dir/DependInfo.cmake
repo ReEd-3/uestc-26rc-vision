@@ -9,6 +9,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/base.cpp" "CMakeFiles/base_node.dir/src/base.cpp.o" "gcc" "CMakeFiles/base_node.dir/src/base.cpp.o.d"
+  "/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/interact_cmds.cpp" "CMakeFiles/base_node.dir/src/interact_cmds.cpp.o" "gcc" "CMakeFiles/base_node.dir/src/interact_cmds.cpp.o.d"
+  "/home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/src/uart_interact.cpp" "CMakeFiles/base_node.dir/src/uart_interact.cpp.o" "gcc" "CMakeFiles/base_node.dir/src/uart_interact.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

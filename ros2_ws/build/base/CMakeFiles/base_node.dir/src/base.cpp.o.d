@@ -695,5 +695,28 @@ CMakeFiles/base_node.dir/src/base.cpp.o: \
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/vector3__traits.hpp \
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/twist__type_support.hpp \
  /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+ /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/pose2_d.hpp \
+ /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/pose2_d__struct.hpp \
+ /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/pose2_d__builder.hpp \
+ /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/pose2_d__traits.hpp \
+ /opt/ros/jazzy/include/geometry_msgs/geometry_msgs/msg/detail/pose2_d__type_support.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/u_int8.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8__struct.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8__builder.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8__traits.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8__type_support.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/u_int8_multi_array.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8_multi_array__struct.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/multi_array_layout__struct.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__struct.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8_multi_array__builder.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8_multi_array__traits.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/multi_array_layout__traits.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__traits.hpp \
+ /opt/ros/jazzy/include/std_msgs/std_msgs/msg/detail/u_int8_multi_array__type_support.hpp \
  /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial/include/serial/serial.h \
- /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial/include/serial/v8stdint.h
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/install/serial/include/serial/v8stdint.h \
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/include/uart_interact.hpp \
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/include/interact_cmds.hpp \
+ /home/ubuntu/ws/uestc-26rc-vision/ros2_ws/src/base/include/uart_interact.hpp
