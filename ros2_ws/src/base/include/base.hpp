@@ -70,8 +70,8 @@ private:
   bool debug_log_on_;
 
   // 速度限幅（可按实际修改）
-  static constexpr float kMaxVx = 0.5f;      // m/s
-  static constexpr float kMaxVy = 0.5f;      // m/s
+  static constexpr float kMaxVx = 1.0f;      // m/s
+  static constexpr float kMaxVy = 1.0f;      // m/s
   static constexpr float kMaxOmega = 0.5f;   // rad/s
 };   // 闭合 class Base
 
