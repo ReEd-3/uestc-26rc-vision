@@ -1,6 +1,0 @@
-[0.000000] (-) TimerEvent: {}
-[0.000049] (-) JobUnselected: {'identifier': 'serial'}
-[0.000145] (base) JobQueued: {'identifier': 'base', 'dependencies': OrderedDict({'serial': '/run/media/lw3/新加卷/Emb_Sys/projects/26rcteam1/vision/ros2_ws/install/serial'})}
-[0.000194] (base) JobStarted: {'identifier': 'base'}
-[0.010167] (base) JobEnded: {'identifier': 'base', 'rc': 1}
-[0.020343] (-) EventReactorShutdown: {}
