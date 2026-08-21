@@ -46,6 +46,9 @@ private:
   std::mutex link_mutex_;
   std::chrono::steady_clock::time_point last_ack_time_;
   bool link_ok_ = false;
+  // 断联是否已经报过日志：避免每个心跳周期重复刷屏，也保证从未收到过
+  // ACK（link_ok_ 从启动起一直是 false）时也能报一次，而不是永远沉默。
+  bool link_lost_logged_ = false;
 
   // 以下均为 ROS 参数（构造函数里 declare_parameter），可通过 --ros-args -p 覆盖。
   std::string port_name_;

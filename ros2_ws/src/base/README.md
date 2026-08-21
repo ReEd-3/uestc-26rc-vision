@@ -1,7 +1,7 @@
 # base
 
 `base_node` 是上位机与下位机之间的 UART 链路节点。当前只实现链路检测：
-每 500 ms 发送一次 `HEARTBEAT`，收到对应的 `ACK` 后认为链路在线。
+周期性发送 `HEARTBEAT`，收到对应的 `ACK` 后认为链路在线。
 
 ## 目录职责
 
@@ -45,6 +45,33 @@ base/
 HEARTBEAT: 0x55 0xA0 0x00 0x00 0xBB
 ACK:       0x55 0x85 0x00 0x00 0xBB
 ```
+
+## 参数（`--ros-args -p` 覆盖）
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `port_name` | `ttyUSB0` | 实际打开的设备是 `/dev/<port_name>` |
+| `baudrate` | `115200` | 串口波特率 |
+| `heartbeat_period_ms` | `500` | HEARTBEAT 发送周期 |
+| `link_timeout_ms` | `2000` | 超过这么久没收到 ACK 判定断链 |
+
+```bash
+ros2 run base base_node --ros-args \
+  -p port_name:=ttyUSB0 \
+  -p baudrate:=115200 \
+  -p heartbeat_period_ms:=500 \
+  -p link_timeout_ms:=2000
+```
+
+## 链路状态与日志
+
+- 启动时打印端口/波特率、串口是否打开成功、RX 线程是否启动
+- 心跳发送失败、串口读失败会各自打一条 `RCLCPP_ERROR`
+- 超过 `link_timeout_ms` 未收到 ACK：打印一次 `Link lost`（同一次断联期间不会重复刷屏，哪怕从启动起就从未收到过 ACK 也会报一次，而不是永远沉默）；之后只要收到 ACK 就会打印 `Link recovered` 并自动恢复，不需要重启节点
+- **注意区分两种断联**：
+  - **逻辑断联**（对端不回 ACK，但串口本身仍然可读写）——上面这套自愈机制能处理，收到 ACK 就自动恢复
+  - **物理断联**（串口设备被拔出、`serial_.read()` 报错）——`rx_thread_loop()` 的读线程会直接退出且不会自动重启/重连；此后即使把设备插回去，也不会再收到任何 ACK，只能重启 `base_node` 进程
+- 目前 `link_ok_`/链路状态**不对外发布任何 ROS 话题**，纯粹靠日志观测，也没有任何断链后的保护动作（比如停车），因为速度控制功能本身还未接入这个节点
 
 ## 新增下行业务命令时怎么改
 

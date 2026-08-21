@@ -66,8 +66,12 @@ void BaseNode::heartbeat_timer_callback()
   std::lock_guard<std::mutex> lock(link_mutex_);
   const auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
     now - last_ack_time_).count();
-  if (elapsed > link_timeout_ms_ && link_ok_) {
+  // 用 link_lost_logged_ 而不是 link_ok_ 来判断要不要报错：这样无论是
+  // “曾经在线后断开”还是“从启动起就没收到过 ACK”，超时后都会报一次，
+  // 且同一次断联期间不会每个心跳周期都重复刷屏。
+  if (elapsed > link_timeout_ms_ && !link_lost_logged_) {
     link_ok_ = false;
+    link_lost_logged_ = true;
     RCLCPP_ERROR(get_logger(), "Link lost (no ACK for %ld ms)", elapsed);
   }
 }
@@ -107,6 +111,7 @@ void BaseNode::handle_rx_frame(const protocol::UartFrame & frame)
   last_ack_time_ = std::chrono::steady_clock::now();
   if (!link_ok_) {
     link_ok_ = true;
+    link_lost_logged_ = false;
     RCLCPP_INFO(get_logger(), "Link recovered");
   }
 }
