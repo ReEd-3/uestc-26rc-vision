@@ -1,9 +1,9 @@
 #include "interact_cmds.hpp"
 
-uint8_t UartFrame::checksum(const std::vector<uint8_t>& frame) 
+uint8_t UartFrame::checksum(const std::vector<uint8_t>& data)
 {
     uint8_t sum = 0;
-    for(auto it = frame.begin(); it != frame.end(); it++) {
+    for(auto it = data.begin(); it != data.end(); it++) {
         sum ^= *it;
     }
     return sum;
@@ -11,8 +11,7 @@ uint8_t UartFrame::checksum(const std::vector<uint8_t>& frame)
 
 std::vector<uint8_t> UartFrame::encode() const 
 {
-    // 帧格式：0x55 | CMD | LEN | DATA | SUM | 0xBB
-    // SUM = 只对 DATA 区逐字节 XOR（与单片机端一致）
+    // 完整协议布局和校验范围见 include/interact_cmds.hpp。
     std::vector<uint8_t> frame;
     frame.reserve(data.size() + 5);
     frame.push_back(uart_cmd::HEAD);

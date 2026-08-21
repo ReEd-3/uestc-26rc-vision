@@ -46,7 +46,7 @@ Base::Base(const std::string & node_name)
     "cmd_vel", 10,
     std::bind(&Base::cmd_vel_callback, this, _1));
 
-  // 上行发布者
+  // 上行发布者USART 通信协议（base 包内实现，见 src/base/include/interact_cmds.hpp + uart_interact.hpp/.cpp + base.cpp）
   event_pub_ = this->create_publisher<std_msgs::msg::UInt8>("base/event", 10);
   status_pub_ = this->create_publisher<geometry_msgs::msg::Pose2D>("base/status", 10);
   ack_pub_ = this->create_publisher<std_msgs::msg::UInt8MultiArray>("base/ack", 10);

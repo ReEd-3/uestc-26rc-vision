@@ -1,6 +1,8 @@
 #ifndef UART_INTERACT_HPP_
 #define UART_INTERACT_HPP_
 
+#include <cstddef>
+
 #include "interact_cmds.hpp"
 
 class UartInteract 
@@ -17,7 +19,7 @@ private:
     State state_ = State::kWaitHead;
     UartFrame frame_;
     uint8_t len_ = 0, sum_ = 0;
-    size_t data_idx_ = 0;
+    std::size_t data_idx_ = 0;
 };
 
-#endif 
+#endif
