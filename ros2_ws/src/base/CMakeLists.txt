@@ -7,23 +7,27 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(std_msgs REQUIRED)
 find_package(serial REQUIRED)
 
-add_executable(base_node 
-  src/base.cpp
-  src/uart_interact.cpp
-  src/interact_cmds.cpp
+add_executable(base_node
+  src/main.cpp
+  src/base_node.cpp
+  src/protocol/interact_cmds.cpp
+  src/protocol/uart_interact.cpp
+  src/transport/serial_transport.cpp
 )
 target_include_directories(base_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
-ament_target_dependencies(base_node rclcpp geometry_msgs std_msgs serial)
+ament_target_dependencies(base_node rclcpp serial)
 
 install(TARGETS base_node
   DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY include/
+  DESTINATION include
 )
 
 ament_package()
