@@ -6,6 +6,7 @@
 #include <chrono>
 #include <cmath>
 #include <cstddef>
+#include <cstdint>
 #include <filesystem>
 #include <iomanip>
 #include <map>
@@ -129,6 +130,16 @@ std::shared_ptr<ob::VideoStreamProfile> getColorProfile(
       throw std::runtime_error("camera has no RGB color stream profile");
     }
   }
+}
+
+bool deviceListContainsUid(const std::shared_ptr<ob::DeviceList>& devices,
+                           const std::string& expected_uid) {
+  if (!devices) return false;
+  for (std::uint32_t index = 0; index < devices->getCount(); ++index) {
+    const char* uid = devices->getUid(index);
+    if (uid && expected_uid == uid) return true;
+  }
+  return false;
 }
 
 Eigen::Matrix3d rotationMatrix(const OBD2CTransform& transform) {
@@ -306,6 +317,7 @@ void KfsVisionNode::start() {
     throw std::logic_error("kfs_vision processing thread is already running");
   }
   stop_requested_.store(false);
+  runtime_failed_.store(false);
   processing_thread_ = std::thread(&KfsVisionNode::processingLoop, this);
 }
 
@@ -314,16 +326,24 @@ void KfsVisionNode::stop() {
   if (processing_thread_.joinable()) processing_thread_.join();
 }
 
+bool KfsVisionNode::runtimeFailed() const noexcept {
+  return runtime_failed_.load();
+}
+
 void KfsVisionNode::processingLoop() noexcept {
   try {
     runPipeline();
   } catch (const ob::Error& error) {
+    runtime_failed_.store(true);
     RCLCPP_ERROR(get_logger(), "OrbbecSDK error: %s", error.what());
   } catch (const Ort::Exception& error) {
+    runtime_failed_.store(true);
     RCLCPP_ERROR(get_logger(), "ONNX Runtime error: %s", error.what());
   } catch (const std::exception& error) {
+    runtime_failed_.store(true);
     RCLCPP_ERROR(get_logger(), "vision pipeline error: %s", error.what());
   } catch (...) {
+    runtime_failed_.store(true);
     RCLCPP_ERROR(get_logger(), "vision pipeline failed with an unknown error");
   }
 
@@ -340,12 +360,42 @@ void KfsVisionNode::runPipeline() {
   RCLCPP_INFO(get_logger(), "inference_provider=%s",
               model.executionProvider().c_str());
 
+  // OrbbecSDK otherwise writes ./Log/OrbbecSDK.log.txt relative to the
+  // caller's working directory. Diagnostics from this node stay in the ROS
+  // terminal, so disable only the SDK file sink before creating its context.
+  ob::Context::setLoggerToFile(OB_LOG_SEVERITY_OFF, "");
   ob::Context context;
   if (context.queryDeviceList()->getCount() == 0) {
     throw std::runtime_error("no Orbbec camera detected");
   }
 
   auto pipeline = std::make_shared<ob::Pipeline>();
+  const auto selected_device = pipeline->getDevice();
+  const auto selected_device_info = selected_device->getDeviceInfo();
+  const char* selected_uid_value = selected_device_info->getUid();
+  if (!selected_uid_value || selected_uid_value[0] == '\0') {
+    throw std::runtime_error("Orbbec camera has no device UID");
+  }
+  const std::string selected_uid(selected_uid_value);
+  const char* selected_serial_value = selected_device_info->getSerialNumber();
+  const std::string selected_serial =
+      selected_serial_value ? selected_serial_value : "unknown";
+  auto camera_disconnected = std::make_shared<std::atomic_bool>(false);
+  context.registerDeviceChangedCallback(
+      [camera_disconnected, selected_uid](
+          const std::shared_ptr<ob::DeviceList>& removed_devices,
+          const std::shared_ptr<ob::DeviceList>&) {
+        try {
+          if (deviceListContainsUid(removed_devices, selected_uid)) {
+            camera_disconnected->store(true);
+          }
+        } catch (...) {
+          camera_disconnected->store(true);
+        }
+      });
+  RCLCPP_INFO(get_logger(), "camera_uid=%s serial=%s", selected_uid.c_str(),
+              selected_serial.c_str());
+
   auto camera_config = std::make_shared<ob::Config>();
   camera_config->enableStream(getColorProfile(pipeline, app_config_));
   camera_config->enableStream(
@@ -378,6 +428,8 @@ void KfsVisionNode::runPipeline() {
   auto next_debug_refresh = Clock::now();
   constexpr auto kDebugRefreshPeriod =
       std::chrono::milliseconds(67);  // About 15 Hz.
+  constexpr int kMaximumConsecutiveFrameTimeouts = 3;
+  int consecutive_frame_timeouts = 0;
 
   while (rclcpp::ok() && !stop_requested_.load()) {
     if (controls) controls->pollAndSave();
@@ -385,17 +437,41 @@ void KfsVisionNode::runPipeline() {
     auto stage_started = Clock::now();
     auto frame_set = pipeline->waitForFrames(1000);
     recordStage(stage_ema, "wait_frames", stage_started);
-    if (!frame_set) continue;
+    if (camera_disconnected->load()) {
+      throw std::runtime_error("Orbbec camera disconnected");
+    }
+    if (!frame_set) {
+      if (!deviceListContainsUid(context.queryDeviceList(), selected_uid)) {
+        throw std::runtime_error("Orbbec camera disconnected");
+      }
+      ++consecutive_frame_timeouts;
+      if (consecutive_frame_timeouts >= kMaximumConsecutiveFrameTimeouts) {
+        throw std::runtime_error(
+            "Orbbec camera produced no frames for 3 consecutive seconds");
+      }
+      RCLCPP_WARN(get_logger(), "camera frame timeout (%d/%d)",
+                  consecutive_frame_timeouts,
+                  kMaximumConsecutiveFrameTimeouts);
+      continue;
+    }
+    consecutive_frame_timeouts = 0;
 
     stage_started = Clock::now();
     auto aligned_frame = align_filter->process(frame_set);
     recordStage(stage_ema, "align_depth", stage_started);
-    if (!aligned_frame) continue;
+    if (!aligned_frame) {
+      throw std::runtime_error("depth alignment returned no frame");
+    }
     auto aligned_set = aligned_frame->as<ob::FrameSet>();
-    if (!aligned_set) continue;
+    if (!aligned_set) {
+      throw std::runtime_error("depth alignment returned a non-frameset result");
+    }
     auto color_frame = aligned_set->getColorFrame();
     auto depth_frame = aligned_set->getDepthFrame();
-    if (!color_frame || !depth_frame) continue;
+    if (!color_frame || !depth_frame) {
+      throw std::runtime_error(
+          "aligned frameset is missing color or depth data");
+    }
 
     stage_started = Clock::now();
     auto filled_frame = hole_filler->process(depth_frame);
@@ -590,4 +666,3 @@ void KfsVisionNode::runPipeline() {
 }
 
 }  // namespace kfs_vision
-

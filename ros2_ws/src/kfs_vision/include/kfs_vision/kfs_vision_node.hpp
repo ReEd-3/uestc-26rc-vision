@@ -21,6 +21,7 @@ class KfsVisionNode : public rclcpp::Node {
 
   void start();
   void stop();
+  [[nodiscard]] bool runtimeFailed() const noexcept;
 
  private:
   void processingLoop() noexcept;
@@ -33,8 +34,8 @@ class KfsVisionNode : public rclcpp::Node {
 
   rclcpp::Publisher<custom_msgs::msg::KfsTarget>::SharedPtr target_publisher_;
   std::atomic_bool stop_requested_{false};
+  std::atomic_bool runtime_failed_{false};
   std::thread processing_thread_;
 };
 
 }  // namespace kfs_vision
-

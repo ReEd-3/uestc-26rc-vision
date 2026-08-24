@@ -13,12 +13,12 @@ int main(int argc, char** argv) {
     node->start();
     rclcpp::spin(node);
     node->stop();
+    const bool runtime_failed = node->runtimeFailed();
     rclcpp::shutdown();
-    return 0;
+    return runtime_failed ? 1 : 0;
   } catch (const std::exception& error) {
     std::cerr << "kfs_vision startup failed: " << error.what() << '\n';
     if (rclcpp::ok()) rclcpp::shutdown();
     return 1;
   }
 }
-

@@ -392,6 +392,10 @@ ros2 topic hz /kfs/target
 
 节点默认每秒输出一条汇总。
 
+节点启动 OrbbecSDK 前会关闭 SDK 自己的文件日志，因此不会在启动目录生成
+`Log/OrbbecSDK.log.txt`。KFS 状态仍通过 ROS 日志显示在当前终端；ROS 2
+自身的运行日志仍按标准行为保存在 `~/.ros/log/`。
+
 有效结果示例：
 
 ```text
@@ -433,6 +437,16 @@ Ctrl+C
 
 节点最多可能等待当前 `waitForFrames(1000)` 返回，然后停止相机 pipeline、回收视觉线程并退出。GUI 模式也可以按 `q`。
 
+相机故障采用“失败即退出”，不在节点内部等待重连：
+
+- SDK 报告目标相机已从设备列表移除：退出；
+- 相机仍可枚举，但连续 3 次、每次 1 秒都没有取得帧：退出；
+- 对齐结果缺失，或对齐帧缺少彩色/深度数据：退出；
+- 上述运行时故障返回退出码 `1`，`ros2 launch` 默认不会自动重启节点；
+- 正常 Ctrl+C 或 GUI 中按 `q` 返回退出码 `0`。
+
+相机断联退出后，重新连接相机并重新执行 launch。目标暂时未被检测到、深度门控失败或位姿无效只代表当前帧不发布消息，不属于相机断联，节点会继续处理后续帧。
+
 检查是否残留：
 
 ```bash
@@ -470,6 +484,9 @@ ldd install/kfs_vision/lib/libonnxruntime_providers_cuda.so | \
 - 确认 Orbbec udev 规则已安装；
 - 确认当前用户有设备权限；
 - 确认没有同时运行 `orbbec_camera` 或其他占用相机的程序。
+
+相机在运行期间断开时，节点输出 `Orbbec camera disconnected` 或对应的
+OrbbecSDK 错误，然后以退出码 `1` 结束。节点不会原地等待相机重新插入；恢复连接后需要重新 launch。
 
 如果报错 `Invalid filter name ... HoleFillingFilter`，或 Orbbec 日志提示
 `extensions/frameprocessor/libob_frame_processor.so` 不存在，说明使用了只包含

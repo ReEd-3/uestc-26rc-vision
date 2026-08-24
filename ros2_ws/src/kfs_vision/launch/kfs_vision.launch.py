@@ -59,6 +59,7 @@ def generate_launch_description():
                 namespace=LaunchConfiguration("namespace"),
                 output="screen",
                 emulate_tty=True,
+                respawn=False,
                 parameters=[
                     LaunchConfiguration("params_file"),
                     {
@@ -82,4 +83,3 @@ def generate_launch_description():
             ),
         ]
     )
-
