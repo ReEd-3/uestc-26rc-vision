@@ -5,7 +5,7 @@
   "sample_step_px": 40,
   "ransac_iterations": 50,
   "inlier_threshold_mm": 17,
-  "min_inliers": 20,
+  "min_inliers": 10,
   "known_width_mm": 350,
   "width_tolerance_mm": 40,
   "center_band_mm": 12,
