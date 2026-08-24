@@ -8,9 +8,9 @@
  * @file interact_cmds.hpp
  * @brief base_node 与下位机之间 UART 帧格式及当前已确认命令的说明。
  *
- * 当前协议只用于确认上位机与下位机的串口链路是否在线：上位机发送
- * HEARTBEAT，下位机回复 ACK。速度控制、任务控制、状态回传和完成事件
- * 均不属于当前协议；未来需要新的下行功能时，确认具体含义后再新增命令字。
+ * 当前协议包含上位机发送 HEARTBEAT、下位机回复 ACK 的链路检测，以及上位机
+ * 下行的 KFS_TARGET 位姿消息。速度控制、任务控制、状态回传和完成事件均不
+ * 属于当前协议；未来需要新功能时，确认具体含义后再新增命令字。
  *
  * 帧格式（每一项都是一个字节）：
  * @code
@@ -32,6 +32,23 @@
  * - 0x85 ACK：DATA 为空，因此 LEN=0、SUM=0。完整帧为
  *   0x55 0x85 0x00 0x00 0xBB，表示下位机已收到最近一次 HEARTBEAT。
  *
+ * KFS 目标下行消息（上位机 -> 下位机）：
+ * - 0x20 KFS_TARGET：DATA 固定为 13 字节，因此完整帧为
+ *   0x55 0x20 0x0D DATA[13] SUM 0xBB。base_node 每收到一条有效的
+ *   `custom_msgs/msg/KfsTarget` 就发送一帧；持续识别到 KFS 时持续发送，
+ *   不做去重、仅首次触发或超时失效处理。
+ *
+ *   DATA 的字节布局（小端序）：
+ *   @code
+ *   offset  size  type             field    meaning
+ *     0      1    uint8_t          color    0=BLUE，1=RED
+ *     1      4    float32 x_m      相对相机右为正，单位 m
+ *     5      4    float32 y_m      相对相机前为正，单位 m
+ *     9      4    float32 yaw_rad  KFS 向相机右侧偏为正，单位 rad
+ *   @endcode
+ *
+ *   例如 `1.0f` 为`00 00 80 3F`。SUM 仍只对上述 13 个 DATA 字节逐字节 XOR。
+ *
  * 修改本说明、帧格式、命令字或 DATA 布局时，必须同步修改下位机固件；本文件
  * 的说明应与 UartFrame::encode()、UartInteract::push() 和电控的实现一致。
  */
@@ -42,6 +59,14 @@ constexpr uint8_t TAIL = 0xBB;
 
 constexpr uint8_t HEARTBEAT = 0xA0;
 constexpr uint8_t ACK = 0x85;
+
+/**
+ * @brief KFS 目标位姿；DATA 固定为 13 字节，字段、单位和字节序见文件顶部。
+ *
+ * DATA[0] 是 color；DATA[1..4]、DATA[5..8]、DATA[9..12] 依次是 x_m、
+ * y_m、yaw_rad 三个小端 float32。下位机必须按此顺序解析。
+ */
+constexpr uint8_t KFS_TARGET = 0x20;
 
 }  // namespace base::protocol::uart_cmd
 

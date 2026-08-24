@@ -6,6 +6,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(custom_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(serial REQUIRED)
 
@@ -20,7 +21,7 @@ target_include_directories(base_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
-ament_target_dependencies(base_node rclcpp serial)
+ament_target_dependencies(base_node custom_msgs rclcpp serial)
 
 install(TARGETS base_node
   DESTINATION lib/${PROJECT_NAME}

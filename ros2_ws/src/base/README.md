@@ -1,7 +1,8 @@
 # base
 
-`base_node` 是上位机与下位机之间的 UART 链路节点。当前只实现链路检测：
-周期性发送 `HEARTBEAT`，收到对应的 `ACK` 后认为链路在线。
+`base_node` 是上位机与下位机之间的 UART 链路节点。它周期性发送
+`HEARTBEAT`、收到 `ACK` 后判断链路在线，并将 ROS 的 `/kfs/target` 目标消息
+下行发送给下位机。
 
 ## 目录职责
 
@@ -30,6 +31,7 @@ base/
 
 ```text
 上位机 -> 下位机  HEARTBEAT  CMD=0xA0, DATA=[]
+上位机 -> 下位机  KFS_TARGET CMD=0x20, DATA=[color, x_m, y_m, yaw_rad]
 下位机 -> 上位机  ACK        CMD=0x85, DATA=[]
 ```
 
@@ -46,6 +48,18 @@ HEARTBEAT: 0x55 0xA0 0x00 0x00 0xBB
 ACK:       0x55 0x85 0x00 0x00 0xBB
 ```
 
+`KFS_TARGET` 的 DATA 固定为 13 字节，详细字段定义以
+[`include/base/protocol/interact_cmds.hpp`](include/base/protocol/interact_cmds.hpp)
+为准：`color` 占 1 字节，`x_m`、`y_m`、`yaw_rad` 分别占 4 字节小端 `float32`。
+因此其帧格式为：
+
+```text
+0x55 0x20 0x0D DATA[13] XOR(DATA) 0xBB
+```
+
+每收到一条有效 `/kfs/target` 消息就发送一帧，不做去重、仅首次触发或超时失效
+处理。持续识别到目标时，KFS 帧会随视觉消息持续发送。
+
 ## 参数（`--ros-args -p` 覆盖）
 
 | 参数 | 默认值 | 说明 |
@@ -54,13 +68,15 @@ ACK:       0x55 0x85 0x00 0x00 0xBB
 | `baudrate` | `115200` | 串口波特率 |
 | `heartbeat_period_ms` | `500` | HEARTBEAT 发送周期 |
 | `link_timeout_ms` | `2000` | 超过这么久没收到 ACK 判定断链 |
+| `kfs_target_topic` | `kfs/target` | 订阅的 `custom_msgs/msg/KfsTarget` 话题 |
 
 ```bash
 ros2 run base base_node --ros-args \
   -p port_name:=ttyUSB0 \
   -p baudrate:=115200 \
   -p heartbeat_period_ms:=500 \
-  -p link_timeout_ms:=2000
+  -p link_timeout_ms:=2000 \
+  -p kfs_target_topic:=kfs/target
 ```
 
 ## 链路状态与日志

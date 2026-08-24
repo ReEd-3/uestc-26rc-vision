@@ -9,6 +9,8 @@
 #include <string>
 #include <thread>
 
+#include <custom_msgs/msg/kfs_target.hpp>
+
 #include "base/protocol/uart_interact.hpp"
 #include "base/transport/serial_transport.hpp"
 
@@ -17,8 +19,9 @@ namespace base {
 /**
  * @brief ROS 2 节点业务层。
  *
- * 当前业务只有 HEARTBEAT/ACK 链路检测。协议编解码位于 protocol，底层串口
- * 读写位于 transport；本类不直接依赖任何具体串口库。
+ * 当前业务包含 HEARTBEAT/ACK 链路检测，以及将 KfsTarget 下行发送给下位机。
+ * 协议编解码位于 protocol，底层串口读写位于 transport；本类不直接依赖具体
+ * 串口库。
  */
 class BaseNode : public rclcpp::Node
 {
@@ -31,6 +34,8 @@ private:
   void heartbeat_timer_callback();
   /** 编码并发送一帧空 DATA 的 HEARTBEAT。 */
   void send_heartbeat();
+  /** 将一条有效 KfsTarget 打包为 13 字节 DATA，并以 KFS_TARGET 命令发送。 */
+  void send_kfs_target(const custom_msgs::msg::KfsTarget::SharedPtr message);
   /** 独立线程的主循环：阻塞读串口，逐字节喂给 uart_parser_，解出完整帧就转交业务处理。 */
   void rx_thread_loop();
   /** 处理一帧已解析完成的上行消息；当前只识别空 DATA 的 ACK，其余帧直接忽略。 */
@@ -41,6 +46,10 @@ private:
   std::thread rx_thread_;
   std::atomic<bool> rx_running_{false};
   rclcpp::TimerBase::SharedPtr heartbeat_timer_;
+  rclcpp::Subscription<custom_msgs::msg::KfsTarget>::SharedPtr kfs_target_subscription_;
+
+  // 心跳定时器与 KFS 订阅回调都可能写串口；同一时刻只允许写入完整的一帧。
+  std::mutex tx_mutex_;
 
   // 定时器和接收线程都会访问下列链路状态，需同一把锁保护。
   std::mutex link_mutex_;
@@ -55,6 +64,7 @@ private:
   int baudrate_ = 115200;
   int heartbeat_period_ms_ = 500;
   int link_timeout_ms_ = 2000;
+  std::string kfs_target_topic_;
 };
 
 }  // namespace base
