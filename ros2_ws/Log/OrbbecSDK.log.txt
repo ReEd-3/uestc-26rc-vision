@@ -2943,3 +2943,33 @@
  - msg: Device is deactivated/disconnected! DeviceComponentId:0
  - type: WRONG_API_CALL_SEQUENCE
  - status: 108
+[08/24 10:55:38.571710][warning][1110532][ObException.cpp:26] A recoverable_exception has occurred!
+ - where: DeviceBase.cpp(347)
+ - msg: Device is deactivated/disconnected! DeviceComponentId:0
+ - type: WRONG_API_CALL_SEQUENCE
+ - status: 108
+[08/24 10:55:38.621902][warning][1110532][ObException.cpp:26] A recoverable_exception has occurred!
+ - where: DeviceBase.cpp(347)
+ - msg: Device is deactivated/disconnected! DeviceComponentId:0
+ - type: WRONG_API_CALL_SEQUENCE
+ - status: 108
+[08/24 10:55:38.672087][warning][1110532][ObException.cpp:26] A recoverable_exception has occurred!
+ - where: DeviceBase.cpp(347)
+ - msg: Device is deactivated/disconnected! DeviceComponentId:0
+ - type: WRONG_API_CALL_SEQUENCE
+ - status: 108
+[08/24 10:55:38.722219][warning][1110532][ObException.cpp:26] A recoverable_exception has occurred!
+ - where: DeviceBase.cpp(347)
+ - msg: Device is deactivated/disconnected! DeviceComponentId:0
+ - type: WRONG_API_CALL_SEQUENCE
+ - status: 108
+[08/24 10:55:38.772355][warning][1110532][ObException.cpp:26] A recoverable_exception has occurred!
+ - where: DeviceBase.cpp(347)
+ - msg: Device is deactivated/disconnected! DeviceComponentId:0
+ - type: WRONG_API_CALL_SEQUENCE
+ - status: 108
+[08/24 10:55:38.822493][warning][1110532][ObException.cpp:26] A recoverable_exception has occurred!
+ - where: DeviceBase.cpp(347)
+ - msg: Device is deactivated/disconnected! DeviceComponentId:0
+ - type: WRONG_API_CALL_SEQUENCE
+ - status: 108
