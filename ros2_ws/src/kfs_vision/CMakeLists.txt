@@ -23,7 +23,10 @@ find_package(Eigen3 REQUIRED)
 find_package(nlohmann_json 3.2 REQUIRED)
 find_package(OpenCV 4 REQUIRED COMPONENTS core imgproc highgui)
 find_package(PCL 1.14 REQUIRED COMPONENTS common)
-find_package(OrbbecSDK REQUIRED CONFIG)
+# The project deploys Orbbec's official Linux .deb package, which installs
+# OrbbecSDKConfig.cmake directly in /usr/local/lib.  Keep an explicit
+# OrbbecSDK_DIR supplied on the command line authoritative.
+find_package(OrbbecSDK REQUIRED CONFIG HINTS /usr/local/lib)
 
 set(ONNXRUNTIME_ROOT
     "${CMAKE_CURRENT_SOURCE_DIR}/third_party/onnxruntime-linux-x64-gpu_cuda13-1.29.0"
