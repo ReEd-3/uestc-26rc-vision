@@ -1,0 +1,13 @@
+kfs_vision_node:
+  ros__parameters:
+    target_topic: "kfs/target"
+
+    frame_width: 1280
+    frame_height: 720
+    camera_fps: 30
+    yolo_confidence: 0.50
+    front_housing_from_depth_zero_mm: 4.930
+
+    show_gui: false
+    terminal_period_ms: 1000
+
