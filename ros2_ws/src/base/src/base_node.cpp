@@ -2,6 +2,8 @@
 
 #include <cmath>
 #include <cstring>
+#include <iomanip>
+#include <sstream>
 #include <stdexcept>
 
 #include "base/protocol/interact_cmds.hpp"
@@ -20,6 +22,19 @@ void append_float32_le(std::vector<uint8_t> & bytes, float value)
   for (int shift = 0; shift < 32; shift += 8) {
     bytes.push_back(static_cast<uint8_t>((bits >> shift) & 0xFFU));
   }
+}
+
+std::string format_hex_bytes(const std::vector<uint8_t> & bytes)
+{
+  std::ostringstream stream;
+  stream << std::uppercase << std::hex << std::setfill('0');
+  for (std::size_t index = 0; index < bytes.size(); ++index) {
+    if (index != 0) {
+      stream << ' ';
+    }
+    stream << "0x" << std::setw(2) << static_cast<unsigned int>(bytes[index]);
+  }
+  return stream.str();
 }
 
 }  // namespace
@@ -50,7 +65,7 @@ BaseNode::BaseNode(const std::string & node_name)
     std::bind(&BaseNode::send_kfs_target, this, std::placeholders::_1));
 
   RCLCPP_INFO(
-    get_logger(), "Base node started (KFS target topic=%s; no heartbeat or ACK)",
+    get_logger(), "Base node started (KFS target topic=%s)",
     kfs_target_subscription_->get_topic_name());
 }
 
@@ -80,11 +95,14 @@ void BaseNode::send_kfs_target(const custom_msgs::msg::KfsTarget::SharedPtr mess
   append_float32_le(data, message->yaw_rad);
 
   const protocol::UartFrame frame{protocol::uart_cmd::KFS_TARGET, std::move(data)};
+  const std::vector<uint8_t> bytes = frame.encode();
   std::string error;
   std::lock_guard<std::mutex> lock(tx_mutex_);
-  if (!serial_.write(frame.encode(), error)) {
+  if (!serial_.write(bytes, error)) {
     RCLCPP_ERROR(get_logger(), "KFS target write failed: %s", error.c_str());
+    return;
   }
+  RCLCPP_INFO(get_logger(), "KFS target queued to serial: %s", format_hex_bytes(bytes).c_str());
 }
 
 }  // namespace base
