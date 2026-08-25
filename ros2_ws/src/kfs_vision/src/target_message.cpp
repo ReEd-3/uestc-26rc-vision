@@ -27,8 +27,10 @@ std::optional<custom_msgs::msg::KfsTarget> makeTargetMessage(
   }
 
   constexpr double kPi = 3.14159265358979323846;
-  message.x_m = static_cast<float>(pose.x_right_mm / 1000.0);
-  message.y_m = static_cast<float>(pose.z_forward_mm / 1000.0);
+  // KfsTarget 对外采用车体平面坐标：前为 +x、左为 +y。
+  // 内部测量仍保持相机坐标：右为 +x_right、前为 +z_forward。
+  message.x_m = static_cast<float>(pose.z_forward_mm / 1000.0);
+  message.y_m = static_cast<float>(-pose.x_right_mm / 1000.0);
   message.yaw_rad = static_cast<float>(pose.yaw_deg * kPi / 180.0);
 
   if (!std::isfinite(message.x_m) ||
@@ -40,4 +42,3 @@ std::optional<custom_msgs::msg::KfsTarget> makeTargetMessage(
 }
 
 }  // namespace kfs_vision
-

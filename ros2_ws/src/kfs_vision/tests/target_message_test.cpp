@@ -40,8 +40,8 @@ void testBlueMessageAndUnits() {
   require(message.has_value(), "valid blue result must create a message");
   require(message->color == custom_msgs::msg::KfsTarget::BLUE,
           "class 0 must map to BLUE");
-  requireNear(message->x_m, 1.0F, 1e-6F, "x millimetres to metres");
-  requireNear(message->y_m, 2.5F, 1e-6F, "y millimetres to metres");
+  requireNear(message->x_m, 2.5F, 1e-6F, "x is forward metres");
+  requireNear(message->y_m, -1.0F, 1e-6F, "y is left metres");
   requireNear(message->yaw_rad, 3.1415927F, 1e-6F,
               "yaw degrees to radians");
 }
@@ -113,4 +113,3 @@ int main() {
     return EXIT_FAILURE;
   }
 }
-

@@ -47,8 +47,8 @@ float32 yaw_rad
 | 字段 | 含义 |
 | --- | --- |
 | `color` | `0=BLUE`，`1=RED` |
-| `x_m` | 相对相机左右位置，右为正，单位 m |
-| `y_m` | 相对相机前向距离，单位 m |
+| `x_m` | 相对相机前向距离，前为正，单位 m |
+| `y_m` | 相对相机左右位置，左为正，单位 m |
 | `yaw_rad` | 水平偏航角，单位 rad，正负方向与原程序一致 |
 
 ### 1.2 发布条件
@@ -399,7 +399,7 @@ ros2 topic hz /kfs/target
 有效结果示例：
 
 ```text
-process_fps=29.2 target=valid color=RED x=0.124m y=0.681m yaw=-0.084rad ...
+process_fps=29.2 target=valid color=RED x=0.681m y=-0.124m yaw=-0.084rad ...
 ```
 
 无检测示例：
