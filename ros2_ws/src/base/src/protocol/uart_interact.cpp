@@ -22,7 +22,7 @@ bool UartInteract::push(uint8_t byte)
       frame_.data.reserve(len_);
       sum_ = 0;
       data_idx_ = 0;
-      // LEN=0 时没有 DATA 字节可收，直接跳到 kWaitSum（此时 sum_ 恒为 0）。
+      // 数据长度为 0 时，直接读取校验和。
       state_ = (len_ == 0) ? State::kWaitSum : State::kWaitData;
       break;
 
@@ -35,8 +35,7 @@ bool UartInteract::push(uint8_t byte)
       break;
 
     case State::kWaitSum:
-      // sum_ 是 kWaitData 阶段逐字节异或累积出来的，只覆盖 DATA 区，
-      // 必须与下位机固件的校验和算法保持一致（见 interact_cmds.hpp 顶部说明）。
+      // 校验和只由 DATA 的所有字节 XOR 得到。
       if (byte == sum_) {
         state_ = State::kWaitTail;
       } else {

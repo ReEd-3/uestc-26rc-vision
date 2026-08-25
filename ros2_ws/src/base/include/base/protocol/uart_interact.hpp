@@ -8,25 +8,23 @@
 
 namespace base::protocol {
 
-/**
- * @brief UART 字节流解析器。
- *
- * 每收到一个字节调用 push()；返回 true 时，frame() 可取得刚解析完成的帧。
- * 此类只认识通用帧格式，不认识 HEARTBEAT、ACK 等业务含义。
+/*
+ * 串口字节流解析器。
+ * 每收到一个字节调用 push()；返回 true 时可通过 frame() 取得完整帧。
+ * 当前 base_node 不接收串口数据，保留此类供以后增加上行消息时使用。
  */
 class UartInteract
 {
 public:
-  /** 喂入一个字节；解出完整且校验通过的一帧时返回 true，此时 frame() 有效。 */
+  // 输入一个字节；组成一帧且校验正确时返回 true。
   bool push(uint8_t byte);
-  /** 最近一次 push() 返回 true 时解析出的帧；其余时候内容未定义。 */
+  // 返回最近一次成功解析出的帧。
   const UartFrame & frame() const;
-  /** 丢弃当前正在解析的帧，回到等待 HEAD 的状态；校验失败或帧尾错误时自动调用。 */
+  // 放弃当前帧并回到等待帧头的状态。
   void reset();
 
 private:
-  // 状态机严格按 HEAD -> CMD -> LEN -> DATA*LEN -> SUM -> TAIL 顺序推进；
-  // 任何一步不符合预期都 reset() 回 kWaitHead，重新等待下一个 HEAD。
+  // 解析顺序：帧头 -> 命令字 -> 长度 -> 数据 -> 校验和 -> 帧尾。
   enum class State {kWaitHead, kWaitCmd, kWaitLen, kWaitData, kWaitSum, kWaitTail};
 
   State state_ = State::kWaitHead;

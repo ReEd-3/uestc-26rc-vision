@@ -14,7 +14,6 @@ add_executable(base_node
   src/main.cpp
   src/base_node.cpp
   src/protocol/interact_cmds.cpp
-  src/protocol/uart_interact.cpp
   src/transport/serial_transport.cpp
 )
 target_include_directories(base_node PUBLIC
