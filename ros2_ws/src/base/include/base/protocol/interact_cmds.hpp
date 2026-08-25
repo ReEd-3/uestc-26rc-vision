@@ -28,8 +28,8 @@
  *   DATA 的字节布局（小端序）：
  *   字节位置  长度  类型      字段       含义
  *      0       1    uint8_t   color      0=蓝色，1=红色
- *      1       4    float32   x_m        相对相机右为正，单位 m
- *      5       4    float32   y_m        相对相机前为正，单位 m
+ *      1       4    float32   x_m        相对相机前为正，单位 m
+ *      5       4    float32   y_m        相对相机左为正，单位 m
  *      9       4    float32   yaw_rad    KFS 向相机右侧偏为正，单位 rad
  *
  *   例如 `1.0f` 为`00 00 80 3F`。SUM 仍只对上述 13 个 DATA 字节逐字节 XOR。
