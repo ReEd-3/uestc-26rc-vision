@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <cstring>
+#include <stdexcept>
 
 #include "base/protocol/interact_cmds.hpp"
 
@@ -41,6 +42,7 @@ BaseNode::BaseNode(const std::string & node_name)
     RCLCPP_INFO(get_logger(), "Serial port opened");
   } else {
     RCLCPP_ERROR(get_logger(), "Failed to open serial port: %s", error.c_str());
+    throw std::runtime_error("Failed to open serial port " + device + ": " + error);
   }
 
   kfs_target_subscription_ = create_subscription<custom_msgs::msg::KfsTarget>(
