@@ -32,7 +32,7 @@ std::optional<FittedPlane> fitPlanePca(const pcl::PointCloud<pcl::PointXYZ>& clo
 
   Eigen::Vector4f centroid;
   if (pcl::compute3DCentroid(subset, centroid) < 3) return std::nullopt;
-  Eigen::Matrix3f covariance;
+  Eigen::Matrix3f covariance = Eigen::Matrix3f::Zero();
   pcl::computeCovarianceMatrixNormalized(subset, centroid, covariance);
   const Eigen::SelfAdjointEigenSolver<Eigen::Matrix3f> solver(covariance);
   if (solver.info() != Eigen::Success) return std::nullopt;
