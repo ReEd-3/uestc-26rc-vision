@@ -52,6 +52,7 @@ OpenCvControls::OpenCvControls(
           {"Temporal right jump (mm)", nullptr, &PlaneFitConfig::temporal_max_right_jump_mm, 0, 300},
           {"Temporal yaw jump (deg)", nullptr, &PlaneFitConfig::temporal_max_yaw_jump_deg, 0, 45},
           {"Temporal reset (ms)", &PlaneFitConfig::temporal_reset_after_ms, nullptr, 0, 2000},
+          {"Temporal EMA (%)", nullptr, &PlaneFitConfig::temporal_ema_alpha, 1, 100, 100.0},
           {"Mask erosion (px)", &PlaneFitConfig::erosion_px, nullptr, 0, 31},
           {"Sample step (px)", &PlaneFitConfig::sample_step_px, nullptr, 1, 40},
           {"RANSAC iterations", &PlaneFitConfig::ransac_iterations, nullptr, 50, 1500},

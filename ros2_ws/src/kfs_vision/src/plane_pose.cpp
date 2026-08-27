@@ -387,6 +387,23 @@ TemporalPoseCheck checkTemporalPose(const HorizontalPose& current,
   return result;
 }
 
+HorizontalPose smoothPoseEma(const HorizontalPose& current,
+                             const HorizontalPose& previous_filtered,
+                             double alpha) {
+  const double clamped_alpha = std::clamp(alpha, 0.0, 1.0);
+  HorizontalPose result = current;
+  const auto blend = [clamped_alpha](double previous, double value) {
+    return previous + clamped_alpha * (value - previous);
+  };
+  result.z_forward_mm = blend(previous_filtered.z_forward_mm, current.z_forward_mm);
+  result.x_right_mm = blend(previous_filtered.x_right_mm, current.x_right_mm);
+  const double yaw_delta_deg =
+      std::remainder(current.yaw_deg - previous_filtered.yaw_deg, 360.0);
+  result.yaw_deg = std::remainder(
+      previous_filtered.yaw_deg + clamped_alpha * yaw_delta_deg, 360.0);
+  return result;
+}
+
 DensePlaneResult densePlaneInliers(const cv::Mat& mask, const cv::Mat& depth_mm,
                                    const Intrinsics& intrinsics,
                                    const PlaneFitConfig& config,

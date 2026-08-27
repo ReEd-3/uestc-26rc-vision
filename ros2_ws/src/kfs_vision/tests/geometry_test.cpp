@@ -69,6 +69,7 @@ void testDepthGateConfigRoundTrip() {
   configured.temporal_max_right_jump_mm = 42.0;
   configured.temporal_max_yaw_jump_deg = 8.0;
   configured.temporal_reset_after_ms = 450;
+  configured.temporal_ema_alpha = 0.42;
   const std::filesystem::path config_path =
       std::filesystem::temp_directory_path() / "kfs_geometry_depth_gate_config.json";
   std::filesystem::remove(config_path);
@@ -87,6 +88,8 @@ void testDepthGateConfigRoundTrip() {
               "temporal yaw threshold must round-trip through JSON");
   require(loaded.temporal_reset_after_ms == 450,
           "temporal reset period must round-trip through JSON");
+  requireNear(loaded.temporal_ema_alpha, 0.42, 1e-12,
+              "temporal EMA alpha must round-trip through JSON");
 }
 
 void testTemporalPoseGate() {
@@ -121,6 +124,22 @@ void testTemporalPoseGate() {
   outlier.yaw_deg = 351.5;
   require(kfs::checkTemporalPose(outlier, previous, config).accepted,
           "a zero temporal limit must disable that component gate");
+
+  kfs::HorizontalPose filtered = previous;
+  filtered.z_forward_mm = 800.0;
+  filtered.x_right_mm = -200.0;
+  filtered.yaw_deg = 179.0;
+  kfs::HorizontalPose current = previous;
+  current.z_forward_mm = 900.0;
+  current.x_right_mm = -100.0;
+  current.yaw_deg = -179.0;
+  const kfs::HorizontalPose smoothed = kfs::smoothPoseEma(current, filtered, 0.25);
+  requireNear(smoothed.z_forward_mm, 825.0, 1e-12,
+              "EMA must blend forward position");
+  requireNear(smoothed.x_right_mm, -175.0, 1e-12,
+              "EMA must blend right position");
+  requireNear(smoothed.yaw_deg, 179.5, 1e-12,
+              "EMA yaw must use the short wrapped angular path");
 }
 
 kfs::SampledPoints twoPlaneCloud() {

@@ -25,6 +25,7 @@ void sanitize(PlaneFitConfig& config) {
   config.temporal_max_right_jump_mm = std::max(0.0, config.temporal_max_right_jump_mm);
   config.temporal_max_yaw_jump_deg = std::max(0.0, config.temporal_max_yaw_jump_deg);
   config.temporal_reset_after_ms = std::max(0, config.temporal_reset_after_ms);
+  config.temporal_ema_alpha = std::clamp(config.temporal_ema_alpha, 0.01, 1.0);
   config.erosion_px = std::max(0, config.erosion_px);
   config.sample_step_px = std::max(1, config.sample_step_px);
   config.ransac_iterations = std::max(1, config.ransac_iterations);
@@ -52,6 +53,7 @@ nlohmann::json toJson(const PlaneFitConfig& config) {
       {"temporal_max_right_jump_mm", config.temporal_max_right_jump_mm},
       {"temporal_max_yaw_jump_deg", config.temporal_max_yaw_jump_deg},
       {"temporal_reset_after_ms", config.temporal_reset_after_ms},
+      {"temporal_ema_alpha", config.temporal_ema_alpha},
       {"erosion_px", config.erosion_px},
       {"sample_step_px", config.sample_step_px},
       {"ransac_iterations", config.ransac_iterations},
@@ -81,6 +83,7 @@ PlaneFitConfig loadPlaneConfig(const std::filesystem::path& path) {
     assignIfNumber(data, "temporal_max_right_jump_mm", config.temporal_max_right_jump_mm);
     assignIfNumber(data, "temporal_max_yaw_jump_deg", config.temporal_max_yaw_jump_deg);
     assignIfNumber(data, "temporal_reset_after_ms", config.temporal_reset_after_ms);
+    assignIfNumber(data, "temporal_ema_alpha", config.temporal_ema_alpha);
     assignIfNumber(data, "erosion_px", config.erosion_px);
     assignIfNumber(data, "sample_step_px", config.sample_step_px);
     assignIfNumber(data, "ransac_iterations", config.ransac_iterations);

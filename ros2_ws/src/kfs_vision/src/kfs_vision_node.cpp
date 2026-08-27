@@ -35,7 +35,8 @@ namespace {
 using Clock = std::chrono::steady_clock;
 
 struct PublishedPoseState {
-  kfs::HorizontalPose pose;
+  kfs::HorizontalPose raw_pose;
+  kfs::HorizontalPose filtered_pose;
   Clock::time_point published_at;
 };
 
@@ -229,6 +230,9 @@ std::string terminalStatusLine(
            << " d_forward=" << temporal.forward_delta_mm << "mm"
            << " d_right=" << temporal.right_delta_mm << "mm"
            << " d_yaw=" << temporal.yaw_delta_deg << "deg";
+  }
+  if (debug.temporal_ema_applied) {
+    stream << " ema_alpha=" << debug.plane_cfg->temporal_ema_alpha;
   }
 
   stream << " | yolo=" << timingValue(timings, "yolo") << "ms"
@@ -649,11 +653,8 @@ void KfsVisionNode::runPipeline() {
         }
 
         measurements.push_back(std::move(measurement));
-        published_message =
-            makeTargetMessage(*detection, measurements.front());
-        if (published_message) {
-          const std::size_t color_index =
-              published_message->color == custom_msgs::msg::KfsTarget::BLUE ? 0U : 1U;
+        if (measurements.front().pose) {
+          const std::size_t color_index = detection->class_id == 0 ? 0U : 1U;
           const Clock::time_point now = Clock::now();
           std::optional<PublishedPoseState>& previous = last_published_poses[color_index];
           const bool state_expired =
@@ -663,21 +664,30 @@ void KfsVisionNode::runPipeline() {
           if (state_expired) previous.reset();
           if (previous) {
             runtime_debug.temporal_pose = kfs::checkTemporalPose(
-                *measurements.front().pose, previous->pose, app_config_.plane);
+                *measurements.front().pose, previous->raw_pose, app_config_.plane);
             runtime_debug.temporal_pose_checked = true;
           }
           if (runtime_debug.temporal_pose_checked && !runtime_debug.temporal_pose.accepted) {
-            published_message.reset();
             runtime_debug.target_state = "invalid";
             failure_reason = "temporal pose rejected";
           } else {
-            previous = PublishedPoseState{*measurements.front().pose, now};
-            runtime_debug.target_state = "valid";
-            failure_reason.clear();
-            target_publisher_->publish(*published_message);
+            const kfs::HorizontalPose raw_pose = *measurements.front().pose;
+            const kfs::HorizontalPose filtered_pose = previous
+                ? kfs::smoothPoseEma(raw_pose, previous->filtered_pose,
+                                     app_config_.plane.temporal_ema_alpha)
+                : raw_pose;
+            runtime_debug.temporal_ema_applied = previous.has_value();
+            measurements.front().pose = filtered_pose;
+            published_message = makeTargetMessage(*detection, measurements.front());
+            if (published_message) {
+              previous = PublishedPoseState{raw_pose, filtered_pose, now};
+              runtime_debug.target_state = "valid";
+              failure_reason.clear();
+              target_publisher_->publish(*published_message);
+            } else {
+              failure_reason = "message fields are invalid";
+            }
           }
-        } else if (measurements.front().pose) {
-          failure_reason = "message fields are invalid";
         }
       }
     }

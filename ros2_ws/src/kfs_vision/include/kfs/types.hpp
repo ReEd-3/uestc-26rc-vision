@@ -23,6 +23,7 @@ struct PlaneFitConfig {
   double temporal_max_right_jump_mm = 30.0;
   double temporal_max_yaw_jump_deg = 7.0;
   int temporal_reset_after_ms = 300;
+  double temporal_ema_alpha = 0.35;
   int erosion_px = 3;
   int sample_step_px = 25;
   int ransac_iterations = 300;
@@ -124,6 +125,7 @@ struct RuntimeDebug {
   double target_center_offset_px = 0.0;
   TemporalPoseCheck temporal_pose;
   bool temporal_pose_checked = false;
+  bool temporal_ema_applied = false;
   DepthGateStats depth_gate;
   std::size_t sample_count = 0;
   std::string plane_state = "not run";

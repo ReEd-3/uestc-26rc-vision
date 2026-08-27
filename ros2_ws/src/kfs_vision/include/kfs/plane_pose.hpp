@@ -59,6 +59,10 @@ TemporalPoseCheck checkTemporalPose(const HorizontalPose& current,
                                     const HorizontalPose& previous,
                                     const PlaneFitConfig& config);
 
+HorizontalPose smoothPoseEma(const HorizontalPose& current,
+                             const HorizontalPose& previous_filtered,
+                             double alpha);
+
 Eigen::Vector3d rgbFrontHousingOrigin(const Eigen::Matrix3d& depth_to_rgb_rotation,
                                      const Eigen::Vector3d& depth_to_rgb_translation_mm,
                                      double depth_surface_z_mm);

@@ -11,6 +11,7 @@ Orbbec FrameSet
   -> 深度门控和前平面拟合
   -> 水平位姿 x/y/yaw
   -> 同色时间一致性门
+  -> 同色 EMA 位姿平滑
   -> 四个字段全部有效时发布 ROS 消息
 ```
 
@@ -396,8 +397,8 @@ ros2 run kfs_vision kfs_vision_node \
 
 ### 9.2 时间一致性 JSON 与 GUI 滑块
 
-时间一致性门不做任何均值、中值或延迟滤波；它只拒绝与同色上一条**已发布**位姿
-差异过大的当前帧。默认配置适用于静止或缓慢变化的 KFS：
+时间一致性门先拒绝与同色上一条**已发布原始位姿**差异过大的当前帧；通过检查后，
+再用上一条同色已发布的**滤波位姿**进行 EMA。默认配置适用于静止或缓慢变化的 KFS：
 
 | JSON 字段 / GUI 滑块 | 默认值 | 作用 |
 | --- | --- | --- |
@@ -405,6 +406,7 @@ ros2 run kfs_vision kfs_vision_node \
 | `temporal_max_right_jump_mm` / `Temporal right jump (mm)` | `30` mm | 相机右向位置单帧允许最大变化 |
 | `temporal_max_yaw_jump_deg` / `Temporal yaw jump (deg)` | `7` deg | 水平偏航单帧允许最大变化 |
 | `temporal_reset_after_ms` / `Temporal reset (ms)` | `300` ms | 同色持续未发布超过该时间后丢弃旧参考，下次有效位姿直接重新建立参考 |
+| `temporal_ema_alpha` / `Temporal EMA (%)` | `0.35` / `35%` | 当前位姿在发布值中的权重；越小越平滑、响应越慢 |
 
 三个跳变阈值设为 `0` 会关闭对应维度的检查；`temporal_reset_after_ms=0` 则只有节点重启
 才会清除同色参考。角度差按环绕角计算，例如 `+179°` 到 `-179°` 是 `2°` 而不是
@@ -412,6 +414,11 @@ ros2 run kfs_vision kfs_vision_node \
 
 这不是运动模型。若机器人或目标会在持续可见时快速移动，请增大相应阈值；否则新真实
 位置会被连续拒绝，直到超过 reset 时间窗口才重新接受。
+
+EMA 对前向距离、右向位置和 yaw 分别生效。位置使用
+`filtered = previous + alpha * (current - previous)`；yaw 使用最短环绕角差，避免
+跨越 `±180°` 时出现长路径旋转。`alpha=1.0` 等价于关闭平滑；推荐先使用默认
+`0.35`，不要在未验证响应滞后前继续降低。
 
 查看实际参数：
 
@@ -492,6 +499,9 @@ temporal=OK|REJECTED d_forward=...mm d_right=...mm d_yaw=...deg
 
 若被拒绝，状态为 `target=invalid reason=temporal pose rejected`，该帧不发布，且不会
 覆盖用于下次比较的上一条有效位姿。
+
+EMA 已应用时，终端额外显示 `ema_alpha=...`；ROS `/kfs/target` 中的 `x_m`、`y_m`
+和 `yaw_rad` 是 EMA 后的值，而深度/平面诊断仍对应当前原始测量帧。
 
 ## 12. GUI 操作
 
