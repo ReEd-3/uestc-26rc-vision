@@ -10,6 +10,7 @@ Orbbec FrameSet
   -> 同类别 NMS 后按横向图像中心选择一个实例
   -> 深度门控和前平面拟合
   -> 水平位姿 x/y/yaw
+  -> 同色时间一致性门
   -> 四个字段全部有效时发布 ROS 消息
 ```
 
@@ -61,7 +62,8 @@ float32 yaw_rad
 3. 深度门控通过；
 4. 前平面拟合成功；
 5. 水平位姿计算成功；
-6. `x_m`、`y_m`、`yaw_rad` 都是有限数值。
+6. 与同色上一条已发布位姿的跳变不超过时间一致性阈值；
+7. `x_m`、`y_m`、`yaw_rad` 都是有限数值。
 
 任一条件失败都不会发布“无效消息”，只在终端显示原因。订阅端必须设置超时，例如 300 ms 没有收到新消息就停止使用旧目标。
 
@@ -392,6 +394,25 @@ ros2 run kfs_vision kfs_vision_node \
 `plane_config_output_path` 后，它们与其他平面参数一起原子保存到指定 JSON。无 GUI
 部署则编辑 JSON 后重启节点。
 
+### 9.2 时间一致性 JSON 与 GUI 滑块
+
+时间一致性门不做任何均值、中值或延迟滤波；它只拒绝与同色上一条**已发布**位姿
+差异过大的当前帧。默认配置适用于静止或缓慢变化的 KFS：
+
+| JSON 字段 / GUI 滑块 | 默认值 | 作用 |
+| --- | --- | --- |
+| `temporal_max_forward_jump_mm` / `Temporal forward jump (mm)` | `30` mm | 相机前向深度单帧允许最大变化 |
+| `temporal_max_right_jump_mm` / `Temporal right jump (mm)` | `30` mm | 相机右向位置单帧允许最大变化 |
+| `temporal_max_yaw_jump_deg` / `Temporal yaw jump (deg)` | `7` deg | 水平偏航单帧允许最大变化 |
+| `temporal_reset_after_ms` / `Temporal reset (ms)` | `300` ms | 同色持续未发布超过该时间后丢弃旧参考，下次有效位姿直接重新建立参考 |
+
+三个跳变阈值设为 `0` 会关闭对应维度的检查；`temporal_reset_after_ms=0` 则只有节点重启
+才会清除同色参考。角度差按环绕角计算，例如 `+179°` 到 `-179°` 是 `2°` 而不是
+`358°`。蓝色、红色分别维护独立参考，颜色切换不会互相拒绝。
+
+这不是运动模型。若机器人或目标会在持续可见时快速移动，请增大相应阈值；否则新真实
+位置会被连续拒绝，直到超过 reset 时间窗口才重新接受。
+
 查看实际参数：
 
 ```bash
@@ -462,6 +483,15 @@ invalid=无效深度 near=小于最小深度 far=大于最大深度
 
 这些数据不会放入 ROS 消息。GUI 的状态栏同步显示最终实例的 `center dx` 以及
 `valid`、`in range` 和 `ratio`。
+
+时间一致性门实际比较过上一条同色消息时，终端追加：
+
+```text
+temporal=OK|REJECTED d_forward=...mm d_right=...mm d_yaw=...deg
+```
+
+若被拒绝，状态为 `target=invalid reason=temporal pose rejected`，该帧不发布，且不会
+覆盖用于下次比较的上一条有效位姿。
 
 ## 12. GUI 操作
 
@@ -561,6 +591,7 @@ source install/setup.bash
 - `horizontal border clipped`：目标碰到水平图像边界；
 - `visible width ... incomplete`：可见宽度不完整；
 - `center is occluded`：中心带被遮挡。
+- `temporal pose rejected`：与同色上一条有效位姿跳变超过时间一致性阈值。
 
 这些情况按照消息契约都不会发布。
 

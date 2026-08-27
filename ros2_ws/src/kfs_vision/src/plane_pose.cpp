@@ -370,6 +370,23 @@ bool keepInstanceByDepth(const cv::Mat& mask, const cv::Mat& positive_depth,
          config.min_in_range_ratio;
 }
 
+TemporalPoseCheck checkTemporalPose(const HorizontalPose& current,
+                                    const HorizontalPose& previous,
+                                    const PlaneFitConfig& config) {
+  TemporalPoseCheck result;
+  result.forward_delta_mm = std::abs(current.z_forward_mm - previous.z_forward_mm);
+  result.right_delta_mm = std::abs(current.x_right_mm - previous.x_right_mm);
+  result.yaw_delta_deg = std::abs(std::remainder(current.yaw_deg - previous.yaw_deg, 360.0));
+  const auto withinLimit = [](double delta, double limit) {
+    return limit <= 0.0 || delta <= limit;
+  };
+  result.accepted =
+      withinLimit(result.forward_delta_mm, config.temporal_max_forward_jump_mm) &&
+      withinLimit(result.right_delta_mm, config.temporal_max_right_jump_mm) &&
+      withinLimit(result.yaw_delta_deg, config.temporal_max_yaw_jump_deg);
+  return result;
+}
+
 DensePlaneResult densePlaneInliers(const cv::Mat& mask, const cv::Mat& depth_mm,
                                    const Intrinsics& intrinsics,
                                    const PlaneFitConfig& config,

@@ -19,6 +19,10 @@ struct PlaneFitConfig {
   int max_depth_mm = 1100;
   int min_valid_depth_pixels = 30;
   double min_in_range_ratio = 0.60;
+  double temporal_max_forward_jump_mm = 30.0;
+  double temporal_max_right_jump_mm = 30.0;
+  double temporal_max_yaw_jump_deg = 7.0;
+  int temporal_reset_after_ms = 300;
   int erosion_px = 3;
   int sample_step_px = 25;
   int ransac_iterations = 300;
@@ -76,6 +80,13 @@ struct PoseResult {
   std::string reason;
 };
 
+struct TemporalPoseCheck {
+  bool accepted = true;
+  double forward_delta_mm = 0.0;
+  double right_delta_mm = 0.0;
+  double yaw_delta_deg = 0.0;
+};
+
 // Counts are restricted to one YOLO instance mask.  A valid pixel has finite,
 // positive depth; only a valid pixel can be too near or too far.
 struct DepthGateStats {
@@ -111,6 +122,8 @@ struct RuntimeDebug {
   int bbox_h = 0;
   double target_center_x_px = 0.0;
   double target_center_offset_px = 0.0;
+  TemporalPoseCheck temporal_pose;
+  bool temporal_pose_checked = false;
   DepthGateStats depth_gate;
   std::size_t sample_count = 0;
   std::string plane_state = "not run";

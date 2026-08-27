@@ -3,6 +3,7 @@
 #include <libobsensor/ObSensor.hpp>
 
 #include <algorithm>
+#include <array>
 #include <chrono>
 #include <cmath>
 #include <cstddef>
@@ -32,6 +33,11 @@ namespace kfs_vision {
 namespace {
 
 using Clock = std::chrono::steady_clock;
+
+struct PublishedPoseState {
+  kfs::HorizontalPose pose;
+  Clock::time_point published_at;
+};
 
 class PipelineGuard {
  public:
@@ -215,6 +221,14 @@ std::string terminalStatusLine(
            << " pose_z=" << pose.z_forward_mm << "mm"
            << " pose_yaw=" << pose.yaw_deg << "deg"
            << " width=" << pose.observed_width_mm << "mm";
+  }
+
+  if (debug.temporal_pose_checked) {
+    const kfs::TemporalPoseCheck& temporal = debug.temporal_pose;
+    stream << " temporal=" << (temporal.accepted ? "OK" : "REJECTED")
+           << " d_forward=" << temporal.forward_delta_mm << "mm"
+           << " d_right=" << temporal.right_delta_mm << "mm"
+           << " d_yaw=" << temporal.yaw_delta_deg << "deg";
   }
 
   stream << " | yolo=" << timingValue(timings, "yolo") << "ms"
@@ -434,6 +448,7 @@ void KfsVisionNode::runPipeline() {
   }
 
   kfs::FrontPlaneEstimator plane_estimator;
+  std::array<std::optional<PublishedPoseState>, 2> last_published_poses;
   std::optional<kfs::Intrinsics> intrinsics;
   std::optional<Eigen::Vector3d> front_housing_origin_rgb;
   std::map<std::string, double> stage_ema;
@@ -637,9 +652,30 @@ void KfsVisionNode::runPipeline() {
         published_message =
             makeTargetMessage(*detection, measurements.front());
         if (published_message) {
-          runtime_debug.target_state = "valid";
-          failure_reason.clear();
-          target_publisher_->publish(*published_message);
+          const std::size_t color_index =
+              published_message->color == custom_msgs::msg::KfsTarget::BLUE ? 0U : 1U;
+          const Clock::time_point now = Clock::now();
+          std::optional<PublishedPoseState>& previous = last_published_poses[color_index];
+          const bool state_expired =
+              previous && app_config_.plane.temporal_reset_after_ms > 0 &&
+              now - previous->published_at >
+                  std::chrono::milliseconds(app_config_.plane.temporal_reset_after_ms);
+          if (state_expired) previous.reset();
+          if (previous) {
+            runtime_debug.temporal_pose = kfs::checkTemporalPose(
+                *measurements.front().pose, previous->pose, app_config_.plane);
+            runtime_debug.temporal_pose_checked = true;
+          }
+          if (runtime_debug.temporal_pose_checked && !runtime_debug.temporal_pose.accepted) {
+            published_message.reset();
+            runtime_debug.target_state = "invalid";
+            failure_reason = "temporal pose rejected";
+          } else {
+            previous = PublishedPoseState{*measurements.front().pose, now};
+            runtime_debug.target_state = "valid";
+            failure_reason.clear();
+            target_publisher_->publish(*published_message);
+          }
         } else if (measurements.front().pose) {
           failure_reason = "message fields are invalid";
         }

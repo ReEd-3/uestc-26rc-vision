@@ -21,6 +21,10 @@ void sanitize(PlaneFitConfig& config) {
   config.max_depth_mm = std::max(config.min_depth_mm + 10, config.max_depth_mm);
   config.min_valid_depth_pixels = std::max(1, config.min_valid_depth_pixels);
   config.min_in_range_ratio = std::clamp(config.min_in_range_ratio, 0.0, 1.0);
+  config.temporal_max_forward_jump_mm = std::max(0.0, config.temporal_max_forward_jump_mm);
+  config.temporal_max_right_jump_mm = std::max(0.0, config.temporal_max_right_jump_mm);
+  config.temporal_max_yaw_jump_deg = std::max(0.0, config.temporal_max_yaw_jump_deg);
+  config.temporal_reset_after_ms = std::max(0, config.temporal_reset_after_ms);
   config.erosion_px = std::max(0, config.erosion_px);
   config.sample_step_px = std::max(1, config.sample_step_px);
   config.ransac_iterations = std::max(1, config.ransac_iterations);
@@ -44,6 +48,10 @@ nlohmann::json toJson(const PlaneFitConfig& config) {
       {"max_depth_mm", config.max_depth_mm},
       {"min_valid_depth_pixels", config.min_valid_depth_pixels},
       {"min_in_range_ratio", config.min_in_range_ratio},
+      {"temporal_max_forward_jump_mm", config.temporal_max_forward_jump_mm},
+      {"temporal_max_right_jump_mm", config.temporal_max_right_jump_mm},
+      {"temporal_max_yaw_jump_deg", config.temporal_max_yaw_jump_deg},
+      {"temporal_reset_after_ms", config.temporal_reset_after_ms},
       {"erosion_px", config.erosion_px},
       {"sample_step_px", config.sample_step_px},
       {"ransac_iterations", config.ransac_iterations},
@@ -69,6 +77,10 @@ PlaneFitConfig loadPlaneConfig(const std::filesystem::path& path) {
     assignIfNumber(data, "max_depth_mm", config.max_depth_mm);
     assignIfNumber(data, "min_valid_depth_pixels", config.min_valid_depth_pixels);
     assignIfNumber(data, "min_in_range_ratio", config.min_in_range_ratio);
+    assignIfNumber(data, "temporal_max_forward_jump_mm", config.temporal_max_forward_jump_mm);
+    assignIfNumber(data, "temporal_max_right_jump_mm", config.temporal_max_right_jump_mm);
+    assignIfNumber(data, "temporal_max_yaw_jump_deg", config.temporal_max_yaw_jump_deg);
+    assignIfNumber(data, "temporal_reset_after_ms", config.temporal_reset_after_ms);
     assignIfNumber(data, "erosion_px", config.erosion_px);
     assignIfNumber(data, "sample_step_px", config.sample_step_px);
     assignIfNumber(data, "ransac_iterations", config.ransac_iterations);

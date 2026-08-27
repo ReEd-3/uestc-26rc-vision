@@ -65,6 +65,10 @@ void testDepthGateConfigRoundTrip() {
   kfs::PlaneFitConfig configured;
   configured.min_valid_depth_pixels = 47;
   configured.min_in_range_ratio = 0.73;
+  configured.temporal_max_forward_jump_mm = 41.0;
+  configured.temporal_max_right_jump_mm = 42.0;
+  configured.temporal_max_yaw_jump_deg = 8.0;
+  configured.temporal_reset_after_ms = 450;
   const std::filesystem::path config_path =
       std::filesystem::temp_directory_path() / "kfs_geometry_depth_gate_config.json";
   std::filesystem::remove(config_path);
@@ -75,6 +79,48 @@ void testDepthGateConfigRoundTrip() {
           "depth-gate valid-pixel minimum must round-trip through JSON");
   requireNear(loaded.min_in_range_ratio, 0.73, 1e-12,
               "depth-gate in-range ratio must round-trip through JSON");
+  requireNear(loaded.temporal_max_forward_jump_mm, 41.0, 1e-12,
+              "temporal forward threshold must round-trip through JSON");
+  requireNear(loaded.temporal_max_right_jump_mm, 42.0, 1e-12,
+              "temporal right threshold must round-trip through JSON");
+  requireNear(loaded.temporal_max_yaw_jump_deg, 8.0, 1e-12,
+              "temporal yaw threshold must round-trip through JSON");
+  require(loaded.temporal_reset_after_ms == 450,
+          "temporal reset period must round-trip through JSON");
+}
+
+void testTemporalPoseGate() {
+  kfs::PlaneFitConfig config;
+  config.temporal_max_forward_jump_mm = 30.0;
+  config.temporal_max_right_jump_mm = 30.0;
+  config.temporal_max_yaw_jump_deg = 7.0;
+  kfs::HorizontalPose previous;
+  previous.z_forward_mm = 787.0;
+  previous.x_right_mm = -220.0;
+  previous.yaw_deg = -8.5;
+
+  kfs::HorizontalPose stable = previous;
+  stable.z_forward_mm += 20.0;
+  stable.x_right_mm -= 15.0;
+  stable.yaw_deg += 6.0;
+  require(kfs::checkTemporalPose(stable, previous, config).accepted,
+          "pose changes within all temporal limits must pass");
+
+  kfs::HorizontalPose outlier = previous;
+  outlier.z_forward_mm += 35.0;
+  outlier.x_right_mm -= 40.0;
+  outlier.yaw_deg += 20.0;
+  const kfs::TemporalPoseCheck rejected =
+      kfs::checkTemporalPose(outlier, previous, config);
+  require(!rejected.accepted && rejected.forward_delta_mm == 35.0 &&
+              rejected.right_delta_mm == 40.0 && rejected.yaw_delta_deg == 20.0,
+          "pose jump beyond temporal limits must be rejected with measured deltas");
+
+  config.temporal_max_yaw_jump_deg = 0.0;
+  outlier = previous;
+  outlier.yaw_deg = 351.5;
+  require(kfs::checkTemporalPose(outlier, previous, config).accepted,
+          "a zero temporal limit must disable that component gate");
 }
 
 kfs::SampledPoints twoPlaneCloud() {
@@ -221,6 +267,7 @@ int main() {
   try {
     testDepthGate();
     testDepthGateConfigRoundTrip();
+    testTemporalPoseGate();
     testFrontAndSecondaryPlaneChoice();
     testDensePose();
     testRoiMorphologyEquivalence();
