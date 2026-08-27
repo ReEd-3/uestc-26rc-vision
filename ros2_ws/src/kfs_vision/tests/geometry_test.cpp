@@ -1,4 +1,5 @@
 #include <cmath>
+#include <filesystem>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -6,6 +7,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 
+#include "kfs/config.hpp"
 #include "kfs/plane_pose.hpp"
 
 namespace {
@@ -25,17 +27,54 @@ void testDepthGate() {
   cv::Mat mask(10, 10, CV_8UC1, cv::Scalar(255));
   cv::Mat positive(10, 10, CV_8UC1, cv::Scalar(255));
   cv::Mat in_range = cv::Mat::zeros(10, 10, CV_8UC1);
+  kfs::PlaneFitConfig config;
   const cv::Rect known_bounds = cv::boundingRect(mask);
   in_range.rowRange(0, 6).setTo(255);
-  require(kfs::keepInstanceByDepth(mask, positive, in_range),
+  require(kfs::keepInstanceByDepth(mask, positive, in_range, config),
           "exactly 60 percent in-range depth must pass");
-  require(kfs::keepInstanceByDepth(mask, positive, in_range, &known_bounds),
+  require(kfs::keepInstanceByDepth(mask, positive, in_range, config, &known_bounds),
           "known-bounds depth gate must preserve the passing result");
   in_range.at<unsigned char>(5, 9) = 0;
-  require(!kfs::keepInstanceByDepth(mask, positive, in_range),
+  require(!kfs::keepInstanceByDepth(mask, positive, in_range, config),
           "less than 60 percent in-range depth must fail");
-  require(!kfs::keepInstanceByDepth(mask, positive, in_range, &known_bounds),
+  require(!kfs::keepInstanceByDepth(mask, positive, in_range, config, &known_bounds),
           "known-bounds depth gate must preserve the rejection result");
+
+  config.min_depth_mm = 150;
+  config.max_depth_mm = 1000;
+  cv::Mat depth(10, 10, CV_32FC1, cv::Scalar(600.0F));
+  depth.rowRange(0, 2).setTo(0.0F);
+  depth.rowRange(2, 4).setTo(1200.0F);
+  depth.rowRange(4, 6).setTo(100.0F);
+  const kfs::DepthGateStats stats =
+      kfs::inspectDepthGate(mask, depth, config, &known_bounds);
+  require(stats.mask_count == 100 && stats.valid_count == 80 &&
+              stats.in_range_count == 40 && stats.invalid_count == 20 &&
+              stats.too_near_count == 20 && stats.too_far_count == 20 &&
+              !stats.accepted,
+          "depth-gate diagnostics must classify invalid, near, and far pixels");
+  config.min_in_range_ratio = 0.50;
+  require(kfs::inspectDepthGate(mask, depth, config, &known_bounds).accepted,
+          "configured in-range ratio must control the depth gate");
+  config.min_valid_depth_pixels = 81;
+  require(!kfs::inspectDepthGate(mask, depth, config, &known_bounds).accepted,
+          "configured valid-depth minimum must control the depth gate");
+}
+
+void testDepthGateConfigRoundTrip() {
+  kfs::PlaneFitConfig configured;
+  configured.min_valid_depth_pixels = 47;
+  configured.min_in_range_ratio = 0.73;
+  const std::filesystem::path config_path =
+      std::filesystem::temp_directory_path() / "kfs_geometry_depth_gate_config.json";
+  std::filesystem::remove(config_path);
+  kfs::savePlaneConfig(configured, config_path);
+  const kfs::PlaneFitConfig loaded = kfs::loadPlaneConfig(config_path);
+  std::filesystem::remove(config_path);
+  require(loaded.min_valid_depth_pixels == 47,
+          "depth-gate valid-pixel minimum must round-trip through JSON");
+  requireNear(loaded.min_in_range_ratio, 0.73, 1e-12,
+              "depth-gate in-range ratio must round-trip through JSON");
 }
 
 kfs::SampledPoints twoPlaneCloud() {
@@ -181,6 +220,7 @@ void testReferenceOrigin() {
 int main() {
   try {
     testDepthGate();
+    testDepthGateConfigRoundTrip();
     testFrontAndSecondaryPlaneChoice();
     testDensePose();
     testRoiMorphologyEquivalence();

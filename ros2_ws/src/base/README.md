@@ -4,6 +4,10 @@
 `/kfs/target`，每收到一条有效目标消息就向下位机发送一帧 KFS 目标数据。
 本版本不发送 `HEARTBEAT`、不接收 `ACK`、不维护链路在线状态。
 
+`base_node` 不参与 KFS 实例选择、深度门控或位姿校验；这些由上游
+[`kfs_vision`](../kfs_vision/README.md) 完成。它只转发收到的每一条有效 ROS
+消息，因此视觉端选择中央 KFS 的规则不会在串口层被再次改变。
+
 ## 目录职责
 
 ```text

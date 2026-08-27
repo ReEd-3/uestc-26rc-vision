@@ -231,6 +231,25 @@ std::optional<SegmentationDetection> OnnxYoloSegmenter::inferBestImpl(
     return std::nullopt;
   }
   candidates = nonMaximumSuppression(std::move(candidates));
+  // The robot should normally act on the KFS closest to the optical-axis
+  // horizontal projection.  Confidence breaks ties, so a high-confidence KFS
+  // at the image edge cannot displace a lower-confidence central KFS.
+  const double frame_center_x = 0.5 * static_cast<double>(frame.cols - 1);
+  const auto center_offset_px = [&letterbox, frame_center_x](const Candidate& candidate) {
+    const double center_x_in_model =
+        static_cast<double>(candidate.box_xyxy.x) + 0.5 * candidate.box_xyxy.width;
+    const double center_x_in_frame =
+        (center_x_in_model - static_cast<double>(letterbox.left)) / letterbox.scale;
+    return std::abs(center_x_in_frame - frame_center_x);
+  };
+  std::sort(candidates.begin(), candidates.end(),
+            [&center_offset_px](const Candidate& lhs, const Candidate& rhs) {
+              const double lhs_offset = center_offset_px(lhs);
+              const double rhs_offset = center_offset_px(rhs);
+              if (lhs_offset < rhs_offset) return true;
+              if (rhs_offset < lhs_offset) return false;
+              return lhs.score > rhs.score;
+            });
   last_timings_.decode_ms = elapsedMilliseconds(stage_started);
 
   stage_started = Clock::now();

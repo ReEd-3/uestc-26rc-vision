@@ -1,6 +1,8 @@
 {
   "min_depth_mm": 150,
   "max_depth_mm": 1000,
+  "min_valid_depth_pixels": 30,
+  "min_in_range_ratio": 0.60,
   "erosion_px": 3,
   "sample_step_px": 40,
   "ransac_iterations": 50,

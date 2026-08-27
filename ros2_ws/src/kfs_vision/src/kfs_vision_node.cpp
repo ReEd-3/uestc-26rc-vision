@@ -186,8 +186,21 @@ std::string terminalStatusLine(
   stream << std::setprecision(1)
          << " mask=" << debug.mask_pixels
          << " bbox=" << debug.bbox_w << 'x' << debug.bbox_h
+         << " center_x=" << debug.target_center_x_px
+         << " center_dx=" << debug.target_center_offset_px
          << " samples=" << debug.sample_count
          << " plane=" << debug.plane_state;
+
+  if (debug.target_state != "none") {
+    const kfs::DepthGateStats& gate = debug.depth_gate;
+    stream << " depth_valid=" << gate.valid_count << '/' << gate.mask_count
+           << " in_range=" << gate.in_range_count
+           << " ratio=" << std::setprecision(3) << gate.inRangeRatio()
+           << std::setprecision(1)
+           << " invalid=" << gate.invalid_count
+           << " near=" << gate.too_near_count
+           << " far=" << gate.too_far_count;
+  }
 
   if (!measurements.empty() && measurements.front().plane) {
     const kfs::PlaneModel& plane = *measurements.front().plane;
@@ -499,10 +512,10 @@ void KfsVisionNode::runPipeline() {
     cv::Mat depth_mm;
     depth_raw.convertTo(
         depth_mm, CV_32FC1, depth_frame->getValueScale());
-    cv::Mat positive_depth;
+    cv::Mat ignored_positive_depth;
     cv::Mat in_range_depth;
     kfs::depthValidityMasks(
-        depth_mm, app_config_.plane, positive_depth, in_range_depth);
+        depth_mm, app_config_.plane, ignored_positive_depth, in_range_depth);
     recordStage(stage_ema, "frame_to_cv", stage_started);
 
     if (!intrinsics) {
@@ -560,10 +573,15 @@ void KfsVisionNode::runPipeline() {
       runtime_debug.mask_pixels = mask_pixels;
       runtime_debug.bbox_w = mask_bounds.width;
       runtime_debug.bbox_h = mask_bounds.height;
+      runtime_debug.target_center_x_px =
+          static_cast<double>(mask_bounds.x) + 0.5 * (mask_bounds.width - 1);
+      runtime_debug.target_center_offset_px = std::abs(
+          runtime_debug.target_center_x_px - 0.5 * (width - 1));
 
       stage_started = Clock::now();
-      if (!kfs::keepInstanceByDepth(
-              detection->mask, positive_depth, in_range_depth, &mask_bounds)) {
+      runtime_debug.depth_gate = kfs::inspectDepthGate(
+          detection->mask, depth_mm, app_config_.plane, &mask_bounds);
+      if (!runtime_debug.depth_gate.accepted) {
         failure_reason = "depth rejected";
         recordStage(stage_ema, "mask_and_gate", stage_started);
       } else {

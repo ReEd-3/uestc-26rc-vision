@@ -46,6 +46,8 @@ OpenCvControls::OpenCvControls(
       specs_({
           {"Min depth (mm)", &PlaneFitConfig::min_depth_mm, nullptr, 10, 3000},
           {"Max depth (mm)", &PlaneFitConfig::max_depth_mm, nullptr, 20, 5000},
+          {"Min valid depth px", &PlaneFitConfig::min_valid_depth_pixels, nullptr, 1, 1000},
+          {"Min in-range (%)", nullptr, &PlaneFitConfig::min_in_range_ratio, 1, 100, 100.0},
           {"Mask erosion (px)", &PlaneFitConfig::erosion_px, nullptr, 0, 31},
           {"Sample step (px)", &PlaneFitConfig::sample_step_px, nullptr, 1, 40},
           {"RANSAC iterations", &PlaneFitConfig::ransac_iterations, nullptr, 50, 1500},
@@ -73,7 +75,7 @@ void OpenCvControls::create() {
     const double value = spec.integer_member != nullptr ? config_.*(spec.integer_member)
                                                         : config_.*(spec.double_member);
     cv::setTrackbarPos(spec.name, kWindowName,
-                       std::clamp(static_cast<int>(std::round(value)), spec.low, spec.high));
+                       std::clamp(static_cast<int>(std::round(value * spec.scale)), spec.low, spec.high));
   }
   created_ = true;
 }
@@ -91,8 +93,9 @@ void OpenCvControls::pollAndSave() {
       }
     } else {
       double& destination = config_.*(spec.double_member);
-      if (destination != static_cast<double>(value)) {
-        destination = value;
+      const double scaled_value = static_cast<double>(value) / spec.scale;
+      if (destination != scaled_value) {
+        destination = scaled_value;
         changed = true;
       }
     }
@@ -148,10 +151,14 @@ cv::Mat buildDebugView(const cv::Mat& source, const cv::Mat& inlier_mask,
              80, runtime_debug.target_state == "accepted" ? cv::Scalar(255, 230, 100)
                                                             : cv::Scalar(80, 80, 255), 0.50);
   drawStatus("Mask: " + std::to_string(runtime_debug.mask_pixels) + " px  |  bbox: " +
-                 std::to_string(runtime_debug.bbox_w) + " x " + std::to_string(runtime_debug.bbox_h),
+                 std::to_string(runtime_debug.bbox_w) + " x " + std::to_string(runtime_debug.bbox_h) +
+                 " | center dx: " + fixed(runtime_debug.target_center_offset_px, 1) + " px",
              105, white, 0.54);
-  drawStatus("RANSAC samples: " + std::to_string(runtime_debug.sample_count) +
-                 "  |  plane: " + runtime_debug.plane_state,
+  const DepthGateStats& gate = runtime_debug.depth_gate;
+  drawStatus("Depth: valid " + std::to_string(gate.valid_count) + "/" +
+                 std::to_string(gate.mask_count) + " | in range " +
+                 std::to_string(gate.in_range_count) + " | ratio " +
+                 fixed(gate.inRangeRatio(), 3),
              130, white, 0.54);
 
   const Measurement* measurement = measurements.empty() ? nullptr : &measurements.front();

@@ -22,6 +22,7 @@ class OpenCvControls {
     double PlaneFitConfig::*double_member;
     int low;
     int high;
+    double scale = 1.0;
   };
 
   static constexpr const char* kWindowName = "Plane Controls";

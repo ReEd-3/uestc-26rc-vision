@@ -17,6 +17,8 @@ namespace kfs {
 struct PlaneFitConfig {
   int min_depth_mm = 100;
   int max_depth_mm = 1100;
+  int min_valid_depth_pixels = 30;
+  double min_in_range_ratio = 0.60;
   int erosion_px = 3;
   int sample_step_px = 25;
   int ransac_iterations = 300;
@@ -74,6 +76,23 @@ struct PoseResult {
   std::string reason;
 };
 
+// Counts are restricted to one YOLO instance mask.  A valid pixel has finite,
+// positive depth; only a valid pixel can be too near or too far.
+struct DepthGateStats {
+  int mask_count = 0;
+  int valid_count = 0;
+  int in_range_count = 0;
+  int invalid_count = 0;
+  int too_near_count = 0;
+  int too_far_count = 0;
+  bool accepted = false;
+
+  [[nodiscard]] double inRangeRatio() const {
+    return valid_count == 0 ? 0.0
+                            : static_cast<double>(in_range_count) / valid_count;
+  }
+};
+
 struct Measurement {
   std::string name;
   std::optional<PlaneModel> plane;
@@ -90,6 +109,9 @@ struct RuntimeDebug {
   int mask_pixels = 0;
   int bbox_w = 0;
   int bbox_h = 0;
+  double target_center_x_px = 0.0;
+  double target_center_offset_px = 0.0;
+  DepthGateStats depth_gate;
   std::size_t sample_count = 0;
   std::string plane_state = "not run";
   const std::map<std::string, double>* timings = nullptr;

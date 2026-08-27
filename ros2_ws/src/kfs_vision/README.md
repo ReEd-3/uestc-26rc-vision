@@ -7,6 +7,7 @@ Orbbec FrameSet
   -> 深度对齐到彩色图
   -> 对齐后的深度补洞
   -> YOLO26-seg CUDA 推理
+  -> 同类别 NMS 后按横向图像中心选择一个实例
   -> 深度门控和前平面拟合
   -> 水平位姿 x/y/yaw
   -> 四个字段全部有效时发布 ROS 消息
@@ -69,6 +70,21 @@ QoS 为：
 ```text
 reliable + volatile + keep_last(1)
 ```
+
+### 1.3 多 KFS 实例选择
+
+YOLO 的候选先按 `yolo_confidence` 过滤，再对**同类别**、IoU 大于 `0.70`
+的重叠框做 NMS。剩余候选不会再单纯按置信度选取，而按以下顺序选择一个实例：
+
+1. 检测框中心到图像水平中心的绝对像素距离更小者优先；
+2. 横向偏移完全相同时，置信度更高者优先。
+
+这是图像坐标策略，使用检测框的横向中心，不依赖深度或相机外参；因此画面边缘
+高置信度 KFS 不会挤占更靠近画面中心的 KFS。没有硬性中心 ROI：画面中只有侧边
+KFS 时，它仍会被选择。
+
+实例选择发生在深度门控之前。当前所选实例若 `depth rejected`，该帧不会改用下一
+候选；节点继续处理下一帧。
 
 ## 2. 系统要求
 
@@ -357,6 +373,25 @@ ros2 run kfs_vision kfs_vision_node \
 
 第一版参数在节点启动时读取。修改模型、分辨率或相机参数后应重启节点。
 
+### 9.1 深度门控 JSON 与 GUI 滑块
+
+深度门控参数保存在 `kfs_plane_fit.json`，不是 ROS 参数。默认配置为：
+
+| JSON 字段 / GUI 滑块 | 默认值 | 作用 |
+| --- | --- | --- |
+| `min_depth_mm` / `Min depth (mm)` | `150` mm | 允许深度下限 |
+| `max_depth_mm` / `Max depth (mm)` | `1000` mm | 允许深度上限 |
+| `min_valid_depth_pixels` / `Min valid depth px` | `30` | mask 内最少有效深度像素数 |
+| `min_in_range_ratio` / `Min in-range (%)` | `0.60` / `60%` | 有效深度中必须落在允许范围内的最小比例 |
+
+门控仅当 `valid_depth >= min_valid_depth_pixels` 且
+`in_range / valid_depth >= min_in_range_ratio` 时通过。GUI 中比例滑块以整数百分比
+显示和保存，例如滑到 `55` 会写入 JSON 值 `0.55`。
+
+使用 `show_gui:=true` 时，两个门控滑块会立即影响当前帧；设置
+`plane_config_output_path` 后，它们与其他平面参数一起原子保存到指定 JSON。无 GUI
+部署则编辑 JSON 后重启节点。
+
 查看实际参数：
 
 ```bash
@@ -414,7 +449,19 @@ process_fps=29.1 target=none reason=no detection ...
 process_fps=29.0 target=invalid reason=horizontal border clipped ...
 ```
 
-终端还显示置信度、mask、边界框、采样数、平面 RMS、内点数和各阶段耗时。这些数据不会放入 ROS 消息。
+终端还显示置信度、mask、边界框、`center_x`、`center_dx`、采样数、平面 RMS、
+内点数和各阶段耗时。其中 `center_dx` 是最终选中实例中心到图像水平中心的像素
+偏移，越小表示越靠近画面中心。
+
+当已有检测实例时，终端还显示深度门控原始计数：
+
+```text
+depth_valid=有效深度/掩码像素 in_range=范围内深度 ratio=范围内/有效深度
+invalid=无效深度 near=小于最小深度 far=大于最大深度
+```
+
+这些数据不会放入 ROS 消息。GUI 的状态栏同步显示最终实例的 `center dx` 以及
+`valid`、`in range` 和 `ratio`。
 
 ## 12. GUI 操作
 
@@ -516,6 +563,18 @@ source install/setup.bash
 - `center is occluded`：中心带被遮挡。
 
 这些情况按照消息契约都不会发布。
+
+对于 `depth rejected`，不要把日志中的 `samples=0` 当成“采样器没有采到点”：
+深度门控在采样前执行，失败时不会进入采样阶段。查看同一行的深度统计：
+
+- `depth_valid` 的分子小于 `min_valid_depth_pixels`：mask 中可用深度太少；
+- `ratio < min_in_range_ratio`：有效深度中处于 `[min_depth_mm, max_depth_mm]` 的比例不足；
+- `invalid` 高：优先排查深度洞、对齐边界或表面测深；
+- `near` 高：检查最小深度；`far` 高：检查最大深度。
+
+不要用调大 RANSAC 内点阈值、`min_inliers` 或 `sample_step_px` 修复本类失败，因为
+它们在深度门控拒绝路径尚未参与。若同帧有多个 KFS，先看 `center_dx` 确认节点选中
+的是预期中央实例。
 
 ### 14.6 启动后加载了错误动态库
 

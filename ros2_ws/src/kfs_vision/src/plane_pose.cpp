@@ -311,8 +311,49 @@ void depthValidityMasks(const cv::Mat& depth_mm, const PlaneFitConfig& config,
   cv::bitwise_and(in_range_depth, finite, in_range_depth);
 }
 
+DepthGateStats inspectDepthGate(const cv::Mat& mask, const cv::Mat& depth_mm,
+                                const PlaneFitConfig& config,
+                                const cv::Rect* known_mask_bounds) {
+  CV_Assert(mask.type() == CV_8UC1 && depth_mm.type() == CV_32FC1 &&
+            mask.size() == depth_mm.size());
+  const cv::Rect bounds = known_mask_bounds != nullptr ? *known_mask_bounds
+                                                       : cv::boundingRect(mask);
+  DepthGateStats stats;
+  if (bounds.empty()) return stats;
+
+  const cv::Mat mask_roi = mask(bounds);
+  const cv::Mat depth_roi = depth_mm(bounds);
+  stats.mask_count = cv::countNonZero(mask_roi);
+  if (stats.mask_count == 0) return stats;
+
+  cv::Mat positive;
+  cv::Mat in_range;
+  depthValidityMasks(depth_roi, config, positive, in_range);
+  cv::Mat selected;
+  cv::bitwise_and(mask_roi, positive, selected);
+  stats.valid_count = cv::countNonZero(selected);
+  cv::bitwise_and(mask_roi, in_range, selected);
+  stats.in_range_count = cv::countNonZero(selected);
+  stats.invalid_count = stats.mask_count - stats.valid_count;
+
+  cv::Mat too_near;
+  cv::compare(depth_roi, config.min_depth_mm, too_near, cv::CMP_LT);
+  cv::bitwise_and(too_near, positive, too_near);
+  cv::bitwise_and(mask_roi, too_near, selected);
+  stats.too_near_count = cv::countNonZero(selected);
+
+  cv::Mat too_far;
+  cv::compare(depth_roi, config.max_depth_mm, too_far, cv::CMP_GT);
+  cv::bitwise_and(too_far, positive, too_far);
+  cv::bitwise_and(mask_roi, too_far, selected);
+  stats.too_far_count = cv::countNonZero(selected);
+  stats.accepted = stats.valid_count >= config.min_valid_depth_pixels &&
+                   stats.inRangeRatio() >= config.min_in_range_ratio;
+  return stats;
+}
+
 bool keepInstanceByDepth(const cv::Mat& mask, const cv::Mat& positive_depth,
-                         const cv::Mat& in_range_depth,
+                         const cv::Mat& in_range_depth, const PlaneFitConfig& config,
                          const cv::Rect* known_mask_bounds) {
   CV_Assert(mask.type() == CV_8UC1 && mask.size() == positive_depth.size() &&
             mask.size() == in_range_depth.size());
@@ -322,10 +363,11 @@ bool keepInstanceByDepth(const cv::Mat& mask, const cv::Mat& positive_depth,
   cv::Mat selected_positive;
   cv::bitwise_and(mask(bounds), positive_depth(bounds), selected_positive);
   const int valid_count = cv::countNonZero(selected_positive);
-  if (valid_count < 30) return false;
+  if (valid_count < config.min_valid_depth_pixels) return false;
   cv::Mat selected_in_range;
   cv::bitwise_and(mask(bounds), in_range_depth(bounds), selected_in_range);
-  return static_cast<double>(cv::countNonZero(selected_in_range)) / valid_count >= 0.60;
+  return static_cast<double>(cv::countNonZero(selected_in_range)) / valid_count >=
+         config.min_in_range_ratio;
 }
 
 DensePlaneResult densePlaneInliers(const cv::Mat& mask, const cv::Mat& depth_mm,

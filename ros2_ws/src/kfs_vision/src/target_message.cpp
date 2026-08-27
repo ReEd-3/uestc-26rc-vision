@@ -34,7 +34,7 @@ std::optional<custom_msgs::msg::KfsTarget> makeTargetMessage(
   message.yaw_rad = static_cast<float>(pose.yaw_deg * kPi / 180.0);
 
   if (!std::isfinite(message.x_m) ||
-      !std::isfinite(message.y_m) ||
+      !std::isfinite(message.y_m) ||  
       !std::isfinite(message.yaw_rad)) {
     return std::nullopt;
   }

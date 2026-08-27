@@ -30,8 +30,12 @@ class FrontPlaneEstimator {
 void depthValidityMasks(const cv::Mat& depth_mm, const PlaneFitConfig& config,
                         cv::Mat& positive_depth, cv::Mat& in_range_depth);
 
+DepthGateStats inspectDepthGate(const cv::Mat& mask, const cv::Mat& depth_mm,
+                                const PlaneFitConfig& config,
+                                const cv::Rect* known_mask_bounds = nullptr);
+
 bool keepInstanceByDepth(const cv::Mat& mask, const cv::Mat& positive_depth,
-                         const cv::Mat& in_range_depth,
+                         const cv::Mat& in_range_depth, const PlaneFitConfig& config,
                          const cv::Rect* known_mask_bounds = nullptr);
 
 DensePlaneResult densePlaneInliers(const cv::Mat& mask, const cv::Mat& depth_mm,

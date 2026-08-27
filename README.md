@@ -1,4 +1,9 @@
-# ros2工作空间
+# UESTC 26RC ROS 2 工作空间
 
+本仓库的 ROS 2 工作空间位于 [`ros2_ws/`](ros2_ws/)，当前包含：
 
-### 目前包含base节点、串口库
+- [`base`](ros2_ws/src/base/README.md)：订阅有效 `/kfs/target` 并向下位机发送 UART KFS 帧；
+- [`serial`](ros2_ws/src/serial/README.md)：串口传输库；
+- [`kfs_vision`](ros2_ws/src/kfs_vision/README.md)：直接使用 Orbbec RGB-D 和 YOLO-seg 的 KFS 位姿节点。
+
+`kfs_vision` 在同帧存在多个红/蓝 KFS 时，先做 YOLO NMS，再优先选择横向最靠近图像中心的实例；置信度只用于横向偏移相同的排序。下游 `base` 只转发已经通过该视觉选择和全部位姿校验的有效消息。

@@ -19,6 +19,8 @@ PlaneFitConfig defaults() {
 void sanitize(PlaneFitConfig& config) {
   config.min_depth_mm = std::max(10, config.min_depth_mm);
   config.max_depth_mm = std::max(config.min_depth_mm + 10, config.max_depth_mm);
+  config.min_valid_depth_pixels = std::max(1, config.min_valid_depth_pixels);
+  config.min_in_range_ratio = std::clamp(config.min_in_range_ratio, 0.0, 1.0);
   config.erosion_px = std::max(0, config.erosion_px);
   config.sample_step_px = std::max(1, config.sample_step_px);
   config.ransac_iterations = std::max(1, config.ransac_iterations);
@@ -40,6 +42,8 @@ nlohmann::json toJson(const PlaneFitConfig& config) {
   return {
       {"min_depth_mm", config.min_depth_mm},
       {"max_depth_mm", config.max_depth_mm},
+      {"min_valid_depth_pixels", config.min_valid_depth_pixels},
+      {"min_in_range_ratio", config.min_in_range_ratio},
       {"erosion_px", config.erosion_px},
       {"sample_step_px", config.sample_step_px},
       {"ransac_iterations", config.ransac_iterations},
@@ -63,6 +67,8 @@ PlaneFitConfig loadPlaneConfig(const std::filesystem::path& path) {
     stream >> data;
     assignIfNumber(data, "min_depth_mm", config.min_depth_mm);
     assignIfNumber(data, "max_depth_mm", config.max_depth_mm);
+    assignIfNumber(data, "min_valid_depth_pixels", config.min_valid_depth_pixels);
+    assignIfNumber(data, "min_in_range_ratio", config.min_in_range_ratio);
     assignIfNumber(data, "erosion_px", config.erosion_px);
     assignIfNumber(data, "sample_step_px", config.sample_step_px);
     assignIfNumber(data, "ransac_iterations", config.ransac_iterations);
@@ -95,4 +101,3 @@ void savePlaneConfig(const PlaneFitConfig& config, const std::filesystem::path& 
 }
 
 }  // namespace kfs
-
